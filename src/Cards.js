@@ -1,15 +1,17 @@
 import React from "react"
+import pokeGenerator from "./pokemon-generator"
 
-export default function Cards(props){
+export default function Cards(){
 
     const [imagenUrl, setImagenUrl] = React.useState("")
 
-    fetch("https://pokeapi.co/api/v2/pokemon-form/25/")
-    .then(res => res.json())
-    .then(data => {
-        setImagenUrl(data.sprites.front_default)
-    })
+    
+    /* 
+    setTimeout(() => {
+    console.log("esto es pokemon ",pokemon.name)
 
+    setImagenUrl(() => (pokemon.imagenFront))
+    
     console.log("esta es la url:", imagenUrl)
     return(
         <div className="card-wrap">
@@ -21,5 +23,5 @@ export default function Cards(props){
             <h3>Description2</h3>
             <h3>Description3</h3>
         </div>
-    )
+    )},6000) */
 }
