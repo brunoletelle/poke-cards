@@ -74,9 +74,9 @@ export default function pokeGenerator(){
                 } else return isValidMove()
             }
             const random1 = isValidMove()
-            const move1 = data.moves.filter(move => move.name === pokemon.moves[random1].move.name)
+            const move1 = data.moves.filter(mov => mov.name === pokemon.moves[random1].move.name)
             const random2 = isValidMove()
-            const move2 = data.moves.filter(move => move.name === pokemon.moves[random2].move.name)
+            const move2 = data.moves.filter(mov => mov.name === pokemon.moves[random2].move.name)
             
             specialMoves = [move1, move2]
             console.log("movimientos especiales:",specialMoves[0][0].url)
@@ -108,8 +108,8 @@ export default function pokeGenerator(){
             }
 
     }
-    
-    setTimeout(() => {return pokemon},4000)
+    return pokemon
+    //setTimeout(() => {return pokemon},4000)
 }
 
 
