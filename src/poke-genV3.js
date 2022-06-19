@@ -1,7 +1,7 @@
 
 export default async function PokeGenerator(){
     
-    //const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+    // const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
     
     
     let physicalMoves = []
@@ -113,7 +113,7 @@ export default async function PokeGenerator(){
             let response = await fetch(`${url}`)
             let data = await response.json()
             
-            pokemon.moveSpec = [...pokemon.moveSpec,
+            pokemon.moveSpec = [... pokemon.moveSpec,
                                 {   name: moveName,
                                     description: data.effect_entries[0].effect,
                                     precision: data.accuracy,
