@@ -1,109 +1,171 @@
-import React from "react"
+async function PokeGenerator(){
 
-export default function PokeGenerator(){
+    const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
     
-    const [physicalMoves, setPhysicalMoves] = React.useState([])
-    const [specialMoves, setSpecialMoves] = React.useState([])
-    const [pokemon, setPokemon] = React.useState(pokeGenerate)
-    const [pokeOk, setPokeOk] = React.useState(false)
-    const [physicOk, setPhysicOk] = React.useState(false)
-    const [specialOk, setSpecialOk] = React.useState(false)
     
+    let physicalMoves = []
+    let specialMoves = []
+
+    const pokemon = await pokeGenerate()
+
     function randomNumber(max, min){
         return (Math.floor((Math.random() * (max - min + 1)) + min))}
     
     //BUSCO POKEMON RANDOM
-    function pokeGenerate(){
+
+    async function pokeGenerate(){
         const randomN = randomNumber(151,1)
-        fetch(`https://pokeapi.co/api/v2/pokemon/${randomN}/`)
-        .then(res => res.json())
-        .then(data => {setPokemon(() =>  
-            {   setPokeOk(true)
-                return({
-                name: data.name,
-                moves: data.moves,
-                type: data.type,
-                stats: data.stats,}
-            )})
-        })
+        
+        const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${randomN}/`)
+        const pokemonData = await pokemonResponse.json()
+
+        const poke = {
+            name: pokemonData.name,
+            imageFront: pokemonData.sprites.front_default,
+            imageBack: pokemonData.sprites.back_default,
+            moves: pokemonData.moves,
+            physicalMove: [],
+            specialMove: [],
+            type: pokemonData.types,
+            stats: pokemonData.stats,
+        }
+
+        //VALIDO Y ORDENO LOS MOVIMIENTOS
+        const pokemon = await moveGenerate(poke)
+        
+        return pokemon
     }
-    if(pokeOk){
-        // console.log(pokemon.moves)
-    }
-    
-    
-        // TENGO QUE PEDIR TODOS LOS MOVES COMUNES Y TODOS LOS ESPECIALES, DESPUES LOS COMPARO CON EL POKEMON
-        // MOVIMIENTOS FISICOS
-    //console.log("Efecto")
-    if(pokeOk && !physicOk){
-        fetch("https://pokeapi.co/api/v2/move-damage-class/2/")
-        .then(res => res.json())
-        .then(data => setPhysicalMoves(() => {
-            if(!physicOk){
-                console.log("Physical")
+        
+        // TENGO QUE PEDIR TODOS LOS MOVES COMUNES Y TODOS LOS ESPECIALES, YA QUE NO VOY A USAR LOS DE ESTADO
+        
+    async function moveGenerate(pokemon){
+
+        //MOVIMIENTO FISICO
+        
+        const physicalData = await getPhysical()
+        const physicalMove = getPhysicalMoves(physicalData.moves)
+
+
+        
+        async function getPhysical(){
+            let physicalResponse = await fetch("https://pokeapi.co/api/v2/move-damage-class/2/")
+            let physicalData = await physicalResponse.json()
+            return physicalData
+        }
+
+        function getPhysicalMoves(physicalData){
+
+            //const movep = physicalData.filter(mov => pokemon.moves[random].move.name === mov.name)
+            
+            //VERIFICO QUE EL MOVIMIENTO NO SEA DE ESTADO O ESPECIAL
+            
+            function isValidMove(){
                 
-                function isValidMove(){
-                    const random = randomNumber(pokemon.moves.length,0)
-                    //console.log(random1)
-                    const found = data.moves.some(mov => pokemon.moves[random].move.name === mov.name)
-                    //console.log(pokemon.moves[random1].move.name)
-                    if(found){
-                        
-                        return random
-                    } else return isValidMove()
-                }
-                console.log("physicOk esta:",physicOk)
-                const random = isValidMove()
-                console.log(random)
-                const move1 = data.moves.filter(mov => pokemon.moves[random].move.name === mov.name)
-                setPhysicOk(true)
-            return move1
+                const random = randomNumber(pokemon.moves.length-1,0)
+                const found = physicalData.some(mov => pokemon.moves[random].move.name === mov.name)
+                
+                if(found){
+                    return random
+                } else return isValidMove()
             }
-        }))
+            
+            const random = isValidMove()
+            return (physicalData.filter(mov => pokemon.moves[random].move.name === mov.name))
+            /* 
+            physicalMoves = movep
+
+            console.log("Movimientos fisicos: ",physicalMoves[0].url)
+             */
+
+            // moveSpec(physicalMoves[0].url, physicalMoves[0].name, "physical")
+            
+        }
         
         // MOVIMIENTOS ESPECIALES
-        if(!specialOk){
-        fetch("https://pokeapi.co/api/v2/move-damage-class/3/")
-        .then(res => res.json())
-        .then(data => setSpecialMoves(() => {
-            if(!specialOk){
-                function isValidMove(){
-                    const random = randomNumber(pokemon.moves.length,0)
-                    //console.log(random1)
-                    const found = data.moves.some(mov => pokemon.moves[random].move.name === mov.name)
-                    //console.log(pokemon.moves[random1].move.name)
-                    if(found){
-                        
-                        return random
-                    } else return isValidMove()
-                }
-                const random1 = isValidMove()
-                const move1 = data.moves.filter(move => move.name === pokemon.moves[random1].move.name)
-                const random2 = isValidMove()
-                const move2 = data.moves.filter(move => move.name === pokemon.moves[random2].move.name)
+
+        const specialData = await getSpecial()
+        const specialMoves = getSpecialMoves(specialData)
+
+        async function getSpecial(){
+            let specialResponse = await fetch("https://pokeapi.co/api/v2/move-damage-class/3/")
+            let specialData = await specialResponse.json()
+            return specialData
+        }
+
+        function getSpecialMoves(specialData){
+
+            //VERIFICO QUE EL MOVIMIENTO NO SEA DE ESTADO O FISICO
+            function isValidMove(){
+                const random = randomNumber(pokemon.moves.length-1,0)
+                const found = specialData.moves.some(mov => pokemon.moves[random].move.name === mov.name)
                 
-                setSpecialOk(true)
-                return ([move1, move2])
+                if(found){
+                    return random
+                } else return isValidMove()
             }
-        }))}
+            const random1 = isValidMove()
+            const move1 = specialData.moves.filter(mov => mov.name === pokemon.moves[random1].move.name)
+
+            const random2 = isValidMove()
+            const move2 = specialData.moves.filter(mov => mov.name === pokemon.moves[random2].move.name)
+            
+            return([move1, move2])
+            /* 
+            specialMoves = [move1, move2]
+
+            console.log("movimientos especiales:",specialMoves[0][0].url)
+            console.log("movimientos especiales:",specialMoves[1][0].url)
+            
+            moveSpec(specialMoves[0][0].url, specialMoves[0][0].name, "special")
+            moveSpec(specialMoves[1][0].url, specialMoves[1][0].name, "special") */
+        }
+
+        // OBTENGO Y ORDENO LAS ESPCIFICACIONES DE LOS MOVIMIENTOS
+        async function moveSpec(url, moveName, type){
+            
+            let response = await fetch(`${url}`)
+            let data = await response.json()
+
+            if(type === "physical"){ 
+                pokemon.physicalMove = [...pokemon.physicalMove,
+                                    {   name: moveName,
+                                        description: data.effect_entries[0].effect,
+                                        precision: data.accuracy,
+                                        power: data.power,
+                                        type: data.type.name,
+                                        classDamage: data.damage_class.name,
+                                    }]
+                            }
+            if(type === "special"){ 
+                console.log("is special")
+                pokemon.specialMove = [...pokemon.specialMove,
+                                    {   name: moveName,
+                                        description: data.effect_entries[0].effect,
+                                        precision: data.accuracy,
+                                        power: data.power,
+                                        type: data.type.name,
+                                        classDamage: data.damage_class.name,
+                                    }]
+            }
+
+        }
+        
+        return pokemon
+
     }
     
+    //setTimeout(() => {return console.log(pokemon)},3500)
     
-    
-    if(pokeOk&&physicOk&&specialOk){
-        console.log(pokemon)
-        return(
-            <div>
-            <h2>{pokemon.name}</h2>
-            <h3>{physicalMoves[0].name}</h3>
-            <h3>{specialMoves[0][0].name}</h3>
-            <h3>{specialMoves[1][0].name}</h3>
-        </div>
-        )
-    } else return(
-        <h1>....</h1>
-    )
+    //console.log(pokemon)
+    return pokemon
 }
+
+PokeGenerator()
+/* sincrona()
+function sincrona(){
+    PokeGenerator().then(data => console.log(data.name))
+} */
+
 /*
 //pokemon https://pokeapi.co/api/v2/pokemon/{id}/ data
 

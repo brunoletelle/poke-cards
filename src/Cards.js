@@ -1,7 +1,7 @@
 import React from "react"
-import pokeGenerator from "./poke-genV3"
+import pokeGenerator from "./poke-gen-final"
 
-export default function Cards(props){
+export default function Cards(){
 
     const [isGen, setIsGen] = React.useState(false)
     const [pokemon, setPokemon] = React.useState([])
