@@ -125,7 +125,5 @@ export default async function PokeGenerator(){
         return await pokemon
     }
     
-    //setTimeout(() => {return console.log(pokemon)},3500)
-    
     return pokemon
 }

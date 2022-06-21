@@ -13,7 +13,8 @@ export default async function pokeGenerator(){
     const pokemonData = await pokemonResponse.json()
 
     const pokemon = {
-        name: pokemonData.name,
+        name: pokemonData.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
+        id: pokemonData.id,
         imageFront: pokemonData.sprites.front_default,
         imageBack: pokemonData.sprites.back_default,
         moves: pokemonData.moves,
@@ -41,7 +42,7 @@ export default async function pokeGenerator(){
     const specialMove2 = getMoves(specialData2.moves)
 
     await moveSpec(specialMove1.url,specialMove1.name, "special")
-    await moveSpec(specialMove1.url,specialMove1.name, "special")
+    await moveSpec(specialMove2.url,specialMove2.name, "special")
     
     return pokemon
 
@@ -80,7 +81,7 @@ export default async function pokeGenerator(){
 
         if(type === "physical"){ 
             pokemon.physicalMove = [...pokemon.physicalMove,
-                                {   name: moveName,
+                                {   name: moveName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                     description: data.effect_entries[0].effect,
                                     precision: data.accuracy,
                                     power: data.power,
@@ -90,7 +91,7 @@ export default async function pokeGenerator(){
                         }
         if(type === "special"){ 
             pokemon.specialMove = [...pokemon.specialMove,
-                                {   name: moveName,
+                                {   name: moveName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                     description: data.effect_entries[0].effect,
                                     precision: data.accuracy,
                                     power: data.power,
@@ -102,5 +103,3 @@ export default async function pokeGenerator(){
     }
 
 }
-    
-//PokeGenerator().then(data => console.log(data.name))
