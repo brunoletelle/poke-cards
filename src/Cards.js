@@ -1,3 +1,4 @@
+import "./Cards.scss"
 import React from "react"
 import pokeGenerator from "./poke-gen-final"
 
@@ -16,7 +17,6 @@ export default function Cards(){
         }
     },[pokemon.length])
     
-
     function generate(){
         for(let i=0; i < 3; i++){
             pokeGenerator().then(poke => {
