@@ -18,8 +18,7 @@ export default async function pokeGenerator(){
         imageFront: pokemonData.sprites.front_default,
         imageBack: pokemonData.sprites.back_default,
         moves: pokemonData.moves,
-        physicalMove: [],
-        specialMove: [],
+        moveArray: [],
         type: pokemonData.types,
         stats: pokemonData.stats,
     }
@@ -79,26 +78,17 @@ export default async function pokeGenerator(){
         let response = await fetch(`${url}`)
         let data = await response.json()
 
-        if(type === "physical"){ 
-            pokemon.physicalMove = [...pokemon.physicalMove,
-                                {   name: moveName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
+        
+            pokemon.moveArray = [...pokemon.moveArray,
+                                {   id: data.id,
+                                    name: moveName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                     description: data.effect_entries[0].effect,
                                     precision: data.accuracy,
                                     power: data.power,
-                                    type: data.type.name,
-                                    classDamage: data.damage_class.name,
+                                    type: data.type.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
+                                    classDamage: data.damage_class.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                 }]
-                        }
-        if(type === "special"){ 
-            pokemon.specialMove = [...pokemon.specialMove,
-                                {   name: moveName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
-                                    description: data.effect_entries[0].effect,
-                                    precision: data.accuracy,
-                                    power: data.power,
-                                    type: data.type.name,
-                                    classDamage: data.damage_class.name,
-                                }]
-        }
+                        
 
     }
 
