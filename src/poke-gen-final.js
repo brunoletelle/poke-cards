@@ -21,6 +21,7 @@ export default async function pokeGenerator(){
         moveArray: [],
         type: pokemonData.types,
         stats: pokemonData.stats,
+        background: `/background-images/${randomNumber(3,0)}.png`,
     }
     
     // TENGO QUE PEDIR TODOS LOS MOVES COMUNES Y TODOS LOS ESPECIALES, YA QUE NO VOY A USAR LOS DE ESTADO
@@ -34,14 +35,10 @@ export default async function pokeGenerator(){
     
     //MOVIMIENTOS ESPECIALES
     
-    const specialData1 = await getDataMoves(3) // 3 por movimiento especial
-    const specialMove1 = getMoves(specialData1.moves)
+    const specialData = await getDataMoves(3) // 3 por movimiento especial
+    const specialMove = getMoves(specialData.moves)
     
-    const specialData2 = await getDataMoves(3) // 3 por movimiento especial
-    const specialMove2 = getMoves(specialData2.moves)
-
-    await moveSpec(specialMove1.url,specialMove1.name, "special")
-    await moveSpec(specialMove2.url,specialMove2.name, "special")
+    await moveSpec(specialMove.url,specialMove.name, "special")
     
     return pokemon
 

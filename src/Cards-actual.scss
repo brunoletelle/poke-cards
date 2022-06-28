@@ -20,13 +20,22 @@ main{
 }
 
 .card{
+    background: linear-gradient(to bottom,#FDE08D, #DF9F28, #8f6B29, #FDE08D, #DF9F28,#DF9F28, #8f6B29, #FDE08D, #DF9F28);
+    width: 320px;
+    height: 420px;
+    padding: 6px 6px;
+    margin: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    border-radius: 15px;
+
     &-wrap{
         font-family: 'Source Sans Pro', italic;
-        background-color: silver;
+        background: white;
         width: 300px;
         height: 420px;
         padding: 0 10px;
-        border: 6px solid black;
         border-radius: 10px;
         justify-content: center;
         align-items: center;
@@ -86,8 +95,9 @@ main{
             border: 1px solid black;
             display: flex;
             justify-content: center;
-            background: linear-gradient(-45deg, #5DE6DE 0%, #B58ECC 100% );
-            transform: translate3d(0px, 0px, 0) scale(0.95);
+            //background: linear-gradient(-45deg, #5DE6DE 0%, #B58ECC 100% );
+            //background-image: url(../public/background-images/0.png);
+            //transform: translate3d(0px, 0px, 0) scale(0.95);
             
         }
         

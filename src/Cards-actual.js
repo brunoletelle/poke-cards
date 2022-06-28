@@ -32,19 +32,19 @@ export default function Cards(){
     return (
         <div>
         { pokemon.map( pokemon => (
-            <div key={pokemon.id}  className="poke">
+            <div key={pokemon.id}  className="card">
                 <div className="card-wrap">
                     <div className="card-top">
-                        <h2 className="card-top-name">{pokemon.name}</h2>
+                        {<h2 className="card-top-name">Lv.</h2>}
                         <div className="card-top-right">
-                            {pokemon.type.map(typ => (<img className="card-top-right-type-img" src={icons+`${typ.type.name}.png`} alt="type icon"/>))}
                             <div className="card-top-right-hp">
                                 <h4>{pokemon.stats[0].stat.name.toUpperCase()}</h4>
                                 <h2>{pokemon.stats[0].base_stat}</h2>
                             </div>
+                            {pokemon.type.map(typ => (<img className="card-top-right-type-img" src={icons+`${typ.type.name}.png`} alt="type icon"/>))}
                         </div>
                     </div>
-                    <div className="card-image-container">
+                    <div className="card-image-container" style={{backgroundImage: `url(${pokemon.background})`}}>
                         <img className="card-image" src={pokemon.imageFront} alt="imagen de pokemon"/>
                     </div>
                     {pokemon.moveArray.map(move => (
@@ -63,11 +63,6 @@ export default function Cards(){
                                 <button>Move Description</button>
                             </div>
                         </div>
-                    ))}
-                </div>
-                <div>
-                    {pokemon.stats.map(statt => (
-                            <h5>{statt.base_stat} {statt.stat.name}</h5>
                     ))}
                 </div>
             </div>
