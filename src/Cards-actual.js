@@ -33,9 +33,9 @@ export default function Cards(){
         <div>
         { pokemon.map( pokemon => (
             <div key={pokemon.id}  className="card">
-                <div className="card-wrap">
+                <div className="card-wrap" style={{background: `linear-gradient(210deg, ${pokemon.backgroundType[0]} 0%,${pokemon.backgroundType[0]} 80%,  ${pokemon.backgroundType[1]} 100% )`}}>
                     <div className="card-top">
-                        {<h2 className="card-top-name">Lv.</h2>}
+                        {<h2 className="card-top-name">Lv. {pokemon.level}</h2>}
                         <div className="card-top-right">
                             <div className="card-top-right-hp">
                                 <h4>{pokemon.stats[0].stat.name.toUpperCase()}</h4>
@@ -47,23 +47,36 @@ export default function Cards(){
                     <div className="card-image-container" style={{backgroundImage: `url(${pokemon.background})`}}>
                         <img className="card-image" src={pokemon.imageFront} alt="imagen de pokemon"/>
                     </div>
+                    <div className="card-bottom">
+                        <h3 className="card-name">{pokemon.name}</h3>
+                        <hr></hr>
                     {pokemon.moveArray.map(move => (
+                        <>
                         <div key={move.id} className="card-move">
                             <div className="card-move-head">
                                 <div className="card-move-head-text">
                                     <h3 className="card-move-head-text-name">{move.name}</h3>
-                                    <h3 className="card-move-head-text-power">{move.power}</h3>
                                 </div>
                                 <div className="card-move-head-type">
+                                    <h3 className="card-move-head-type-power">{move.power}</h3>
                                     <img className="card-move-head-type-img" src={icons+`${move.type.toLowerCase()}.png`} alt="Move Type Icon" />
                                 </div>
                             </div>
-                            <div className="card-move-buttons">
-                                <button>{move.classDamage} Attack</button>
-                                <button>Move Description</button>
-                            </div>
                         </div>
+                        <hr></hr>
+                        </>
                     ))}
+                    <div className="card-bottom-stats">
+                    {pokemon.stats.map((stat) => {
+                        return( 
+                                <div className="card-bottom-stats-text">
+                                    <h3>{stat.stat.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())}</h3>
+                                    <h3>{stat.levelDV_stat}</h3>
+                                </div>
+                                )
+                            })}
+                    </div>
+                    </div>
                 </div>
             </div>
         ))}
