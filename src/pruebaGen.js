@@ -43,6 +43,7 @@ async function pokeGenerator(){
 
     statsGen()
     backgroundColor()
+    borderColor()
 
     await moveSpec(specialMove.url,specialMove.name)
     
@@ -175,9 +176,95 @@ async function pokeGenerator(){
         console.log(pokemon.backgroundType)
     }
 
+    function borderColor(){
+        if(pokemon.DV === 15){
+            pokemon.borderColor = "linear-gradient(-210deg,#dedede,#ffffff 16%,#dedede 21%,#ffffff 24%,#caa1de 27%,#dea1ca 30%,#dedede 38%,#ffffff 45%,#ffffff 60%,#dedede 72%,#ffffff 80%,#dedede 84%,#caa1de 93%,#dea1ca)"
+        } else if(pokemon.DV === 14 || pokemon.DV === 13){
+            pokemon.borderColor = "linear-gradient(-72deg,#ffde45,#ffffff 16%,#ffde45 21%,#ffffff 24%,#452100 27%,#ffde45 36%,#ffffff 45%,#ffffff 60%,#ffde45 72%,#ffffff 80%,#ffde45 84%,#452100)"
+        } else if(pokemon.DV <=12 && pokemon.DV > 9){
+            pokemon.borderColor = "linear-gradient(-72deg,#dedede,#ffffff 16%,#dedede 21%,#ffffff 24%,#454545 27%,#dedede 36%,#ffffff 45%,#ffffff 60%,#dedede 72%,#ffffff 80%,#dedede 84%,#a1a1a1)"
+        } else if(pokemon.DV <10 && pokemon.DV > 0){
+            pokemon.borderColor = "linear-gradient(-72deg,#ca7345,#ffdeca 16%,#ca7345 21%,#ffdeca 24%,#a14521 27%,#ca7345 36%,#ffdeca 45%,#ffdeca 60%,#ca7345 72%,#ffdeca 80%,#ca7345 84%,#732100)"
+        }
+    }
+
 }
 
 pokeGenerator()
 
 
 ///// 
+
+    
+    /* //PERLA:
+    background:
+    linear-gradient(
+      -210deg,
+      #dedede,
+      #ffffff 16%,
+      #dedede 21%,
+      #ffffff 24%,
+      #caa1de 27%,
+      #dea1ca 30%,
+      #dedede 38%,
+      #ffffff 45%,
+      #ffffff 60%,
+      #dedede 72%,
+      #ffffff 80%,
+      #dedede 84%,
+      #caa1de 93%,
+      #dea1ca
+    );
+    */
+    /* //GOLDEN
+  background:
+  linear-gradient(
+    -72deg,
+    #ffde45,
+    #ffffff 16%,
+    #ffde45 21%,
+    #ffffff 24%,
+    #452100 27%,
+    #ffde45 36%,
+    #ffffff 45%,
+    #ffffff 60%,
+    #ffde45 72%,
+    #ffffff 80%,
+    #ffde45 84%,
+    #452100
+  ); */
+    /* //SILVER
+  background:
+  linear-gradient(
+    -72deg,
+    #dedede,
+    #ffffff 16%,
+    #dedede 21%,
+    #ffffff 24%,
+    #454545 27%,
+    #dedede 36%,
+    #ffffff 45%,
+    #ffffff 60%,
+    #dedede 72%,
+    #ffffff 80%,
+    #dedede 84%,
+    #a1a1a1
+  ); */
+    /* // BRONCE
+  background:
+  linear-gradient(
+    -72deg,
+    #ca7345,
+    #ffdeca 16%,
+    #ca7345 21%,
+    #ffdeca 24%,
+    #a14521 27%,
+    #ca7345 36%,
+    #ffdeca 45%,
+    #ffdeca 60%,
+    #ca7345 72%,
+    #ffdeca 80%,
+    #ca7345 84%,
+    #732100
+  );
+ */

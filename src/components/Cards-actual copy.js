@@ -1,6 +1,6 @@
 import "./Cards-actual.scss"
 import React from "react"
-import pokeGenerator from "./poke-gen-final"
+import pokeGenerator from "../poke-gen-final"
 import { type } from "@testing-library/user-event/dist/type"
 
 export default function Cards(){
@@ -29,10 +29,10 @@ export default function Cards(){
 
     if(isGen){
         
-    return (
-        <div>
+        return (
+        <div className="show">
         { pokemon.map( pokemon => (
-            <div key={pokemon.id}  className="card">
+            <div key={pokemon.id}  className="card" style={{background: `${pokemon.borderColor}`}}>
                 <div className="card-wrap" style={{background: `linear-gradient(210deg, ${pokemon.backgroundType[0]} 0%,${pokemon.backgroundType[0]} 80%,  ${pokemon.backgroundType[1]} 100% )`}}>
                     <div className="card-top">
                         {<h2 className="card-top-name">Lv. {pokemon.level}</h2>}
@@ -81,19 +81,12 @@ export default function Cards(){
             </div>
         ))}
         </div>
-    ) 
-    }else return (
-        <div>
-            <h1>Cargando...</h1>
-        </div>)
-    /* 
-    [...pokemon.physicalMove,
-        {   name: moveName,
-            description: data.effect_entries[0].effect,
-            precision: data.accuracy,
-            power: data.power,
-            type: data.type.name,
-            classDamage: data.damage_class.name,
-        }]
-         */
+        ) 
+    } else return (
+        <div className="card-load">
+            <div className="preloader">
+            </div>
+        </div>
+        )
+    
 }
