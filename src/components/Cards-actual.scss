@@ -265,17 +265,18 @@ hr {
     margin: 5px 10px;
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
     border-radius: 15px;
     border: 1px solid black;
 
 }
 .preloader {
-    width: 70px;
-    height: 70px;
+    width: 100px;
+    height: 100px;
     border: 10px solid #eee;
     border-top: 10px solid blue;
     border-radius: 50%;
+    background-image: url('pokeball.png');
     animation-name: girar;
     animation-duration: 2s;
     animation-iteration-count: infinite;
