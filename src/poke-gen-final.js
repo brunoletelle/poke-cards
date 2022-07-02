@@ -2,7 +2,8 @@ export default async function pokeGenerator(){
 
     //const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
         
-    const randomN = randomNumber(151,1)
+    const randomN = randomNumber(350,1)
+
     function randomNumber(max, min){
         return (Math.floor((Math.random() * (max - min + 1)) + min))
     }
