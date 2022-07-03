@@ -21,8 +21,8 @@ export default function Home(){
             <NavBar />
             <div className="home" style={{backgroundImage: "url(../background/background-2.jpg)"}}>
                 <div className="home-welcome">
-                    <div className="home-welcome-desc">
                         <h1>Bienvenido entrenador!</h1>
+                    <div className="home-welcome-desc">
                         <p>
                             <h3>En este lugar vas a poder generar tu propio equipo de Pokomones</h3>
                             <h3>Vas a poder utilizarlos para combatir en la zona de batalla, y juntar monedas para conseguir nuevos</h3>

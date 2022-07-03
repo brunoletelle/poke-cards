@@ -22,8 +22,8 @@ body { margin:0; padding:0 }
     width: 100%;
     height: 1080px;
     margin: 0;
-    padding-top: 30px;
-    font-family: 'Source Sans Pro', sans-serif; 
+    padding-top: 70px;
+    font-family: 'Monserrat', sans-serif;
     //background-color: #FFD538;
     background-repeat: no-repeat;
     background-size: cover;
@@ -37,23 +37,27 @@ body { margin:0; padding:0 }
         flex-direction: column;
         align-items: center;
         
+        h1{
+          font-size: 45px;
+          margin-bottom: 30px;
+          font-weight: 900;
+        }
         &-desc{
+          
           
           padding: 50px;
           
           h1, h2, h3, p{
+            font-weight: 300;
             margin: 5px;
             margin-bottom: 10px;
             text-align: center;
           }
 
-          h1{
-            font-size: 45px;
-            margin-bottom: 50px;
-          }
 
           p h3{
             font-size: 25px;
+            font-style: italic;
           }
 
           hr{
@@ -66,7 +70,7 @@ body { margin:0; padding:0 }
 .card-list{
     display: flex;
     flex-direction: row;
-    transform: scale(0.7);
+    transform: scale(0.8);
 }
 
 .card:hover{
@@ -87,7 +91,15 @@ body { margin:0; padding:0 }
   }
 
 button{
-    width: 200px;
-    height: 30px;
+    width: 250px;
+    height: 50px;
+    font-size: 20px;
+    color: white;
     margin-top: 25px;
+    background-color: #213F9E;
+    border: none;
+}
+
+button:hover{
+  background-color: #3967FF;
 }

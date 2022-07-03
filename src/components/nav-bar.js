@@ -5,13 +5,13 @@ export default function NavBar(){
     return(
         <div className="nav">
             <div className="nav-main">
-                <a href>Home</a>
-                <a href>Equipo</a>
-                <a href>Batalla</a>
-                <a href>Market</a>
+                <a href>HOME</a>
+                <a href>EQUIPO</a>
+                <a href>BATALLA</a>
+                <a href>MARKET</a>
             </div>
             <div>
-                <h3>Coins</h3>
+                <h3>COINS</h3>
             </div>
         </div>
     )
