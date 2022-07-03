@@ -1,8 +1,9 @@
 async function pokeGenerator(){
 
     const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-    
-    const randomN = randomNumber(151,1)
+        
+    const randomN = randomNumber(350,1)
+
     function randomNumber(max, min){
         return (Math.floor((Math.random() * (max - min + 1)) + min))
     }
@@ -99,11 +100,14 @@ async function pokeGenerator(){
     // Generador de Stats y DV del pokemon
 
     function statsGen(){
-        const DV = randomNumber(15,0)
+        const DV = randomNumber(15,1)
         const level = randomNumber(29,25)
         
         pokemon.DV = DV
         pokemon.level = level
+
+        console.log("Pokemon: ", pokemon.name)
+        console.log("DV: ",pokemon.DV)
 
         const hp = Math.floor((pokemon.stats[0].base_stat+DV)*2/100)*level + level + 10
         
@@ -111,12 +115,10 @@ async function pokeGenerator(){
 
         for(let i=1; i<6; i++){
             stat.push(Math.floor((pokemon.stats[i].base_stat+DV)*2/100)*level + level + 5)
-            console.log("Antes de Calculo:" ,pokemon.stats[i].base_stat)
-        }
+            }
 
         for(let i = 0 ; i<6 ; i++){
             pokemon.stats[i] = {...pokemon.stats[i], levelDV_stat: stat[i]}
-            console.log("Despues de Calculo:" ,stat[i])
         }
     }
 
@@ -128,7 +130,7 @@ async function pokeGenerator(){
 
         for(let i = 0; i < type.length; i++){
             const t = type[i].type.name
-            console.log(t)
+            
             if(t === "bug"){
                 typeColor.push("#ADD65A")
             } else if(t === "dark"){
@@ -173,18 +175,19 @@ async function pokeGenerator(){
         }
     
         pokemon.backgroundType = typeColor
-        console.log(pokemon.backgroundType)
     }
 
     function borderColor(){
         if(pokemon.DV === 15){
             pokemon.borderColor = "linear-gradient(-210deg,#dedede,#ffffff 16%,#dedede 21%,#ffffff 24%,#caa1de 27%,#dea1ca 30%,#dedede 38%,#ffffff 45%,#ffffff 60%,#dedede 72%,#ffffff 80%,#dedede 84%,#caa1de 93%,#dea1ca)"
-        } else if(pokemon.DV === 14 || pokemon.DV === 13){
+        } else if(pokemon.DV <= 14 && pokemon.DV >= 13){
             pokemon.borderColor = "linear-gradient(-72deg,#ffde45,#ffffff 16%,#ffde45 21%,#ffffff 24%,#452100 27%,#ffde45 36%,#ffffff 45%,#ffffff 60%,#ffde45 72%,#ffffff 80%,#ffde45 84%,#452100)"
-        } else if(pokemon.DV <=12 && pokemon.DV > 9){
+        } else if(pokemon.DV <=12 && pokemon.DV >= 11){
             pokemon.borderColor = "linear-gradient(-72deg,#dedede,#ffffff 16%,#dedede 21%,#ffffff 24%,#454545 27%,#dedede 36%,#ffffff 45%,#ffffff 60%,#dedede 72%,#ffffff 80%,#dedede 84%,#a1a1a1)"
-        } else if(pokemon.DV <10 && pokemon.DV > 0){
+        } else if(pokemon.DV <=10 && pokemon.DV > 8){
             pokemon.borderColor = "linear-gradient(-72deg,#ca7345,#ffdeca 16%,#ca7345 21%,#ffdeca 24%,#a14521 27%,#ca7345 36%,#ffdeca 45%,#ffdeca 60%,#ca7345 72%,#ffdeca 80%,#ca7345 84%,#732100)"
+        } else if(pokemon.DV <=8){
+            pokemon.borderColor = "grey"
         }
     }
 

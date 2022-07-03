@@ -1,9 +1,13 @@
-import React from "react";
+import {useContext} from "react";
 import "./NavBar.scss"
 import image from "./poke-logo2.png"
 import {Link as RouteLink} from "react-router-dom"
+import { Context } from "../Context";
 
 export default function NavBar(){
+
+    const {userPokomons} = useContext(Context)
+
     return(
         <div>
             <div className="top" style={{backgroundImage: "url(../background/back-top.png)"}}>
@@ -11,16 +15,18 @@ export default function NavBar(){
             </div>
             <div className="nav">
                 <div className="nav-main">
-                    <RouteLink to="/">
+                    <RouteLink to="/" style={{ textDecoration: 'none' }}>
                         <h3>HOME</h3>
                     </RouteLink>
-                    <RouteLink to="/team">
+                    {userPokomons.length >= 3 &&
+                    <RouteLink to="/team" style={{ textDecoration: 'none' }}>
                         <h3>TEAM</h3>
                     </RouteLink>
-                    <RouteLink to="/battleground">
-                        <h3>BATTLEGROUND</h3>
+                    }
+                    <RouteLink to="/battleground" style={{ textDecoration: 'none' }} >
+                        <h3 >BATTLEGROUND</h3>
                     </RouteLink>
-                    <RouteLink to="/market">
+                    <RouteLink to="/market" style={{ textDecoration: 'none' }}>
                         <h3>MARKET</h3>
                     </RouteLink>
                 </div>

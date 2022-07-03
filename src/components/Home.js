@@ -5,7 +5,7 @@ import { Context } from "../Context"
 
 export default function Home(){
 
-    const {generatePokemon, show, pokomon} = useContext(Context)
+    const {generatePokemon, userPokomons} = useContext(Context)
 
     function handleOnClick(){
         generatePokemon()
@@ -26,9 +26,9 @@ export default function Home(){
                     <button onClick={handleOnClick}>Mostrar Mi Equipo</button>
                 </div>
                 <div className="card-list">
-                    <Card className="card" pokemon={pokomon[0] ? pokomon[0] : "wait"}/>
-                    <Card className="card" pokemon={pokomon[1] ? pokomon[1] : "wait"}/>
-                    <Card className="card" pokemon={pokomon[2] ? pokomon[2] : "wait"}/>
+                    <Card className="card" pokemon={userPokomons[0] ? userPokomons[0] : "wait"}/>
+                    <Card className="card" pokemon={userPokomons[1] ? userPokomons[1] : "wait"}/>
+                    <Card className="card" pokemon={userPokomons[2] ? userPokomons[2] : "wait"}/>
                 </div>
                 
             </div>

@@ -5,27 +5,27 @@ const Context = React.createContext()
 
 function ContextProvider({children}){
 
-    const [pokomon, setPokomon] = React.useState([])
+    const [userPokomons, setUserPokomons] = React.useState([])
     const [show, setShow] = React.useState(false)
 
     function generatePokemon(){
-        if(pokomon.length <3){
+        if(userPokomons.length <3){
             pokeGenerator().then(poke => {
-                setPokomon(prevPokomon => [...prevPokomon,poke])
+                setUserPokomons(prevPokomon => [...prevPokomon,poke])
             })
         }
         
     }
 
     React.useEffect(() => {
-        if(pokomon.length === 3 ){
+        if(userPokomons.length === 3 ){
             setShow(true)
         }
-    },[pokomon])
+    },[userPokomons])
     
 
     return(
-        <Context.Provider value={{pokomon, generatePokemon, show}}>
+        <Context.Provider value={{userPokomons, generatePokemon, show}}>
             {children}
         </Context.Provider>
     )
