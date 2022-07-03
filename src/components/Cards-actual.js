@@ -1,27 +1,22 @@
 import "./Cards-actual.scss"
-import React from "react"
-import pokeGenerator from "../poke-gen-final"
-import { type } from "@testing-library/user-event/dist/type"
+import {useEffect, useContext,useState} from "react"
 
-export default function Card(){
+export default function Card(props){
 
-    const [isGen, setIsGen] = React.useState(false)
-    const [pokemon, setPokemon] = React.useState("")
-    
-    const icons = `/icons/type_icons/class_icon_`
-    
-    React.useEffect(() => {
-        if(pokemon === ""){
-            pokeGenerator().then(poke => {
-                setPokemon(() => poke)
-            })
-        }
-        if(pokemon !== ""){
+    const [isGen, setIsGen] = useState(false)
+
+    useEffect(() => {
+        if(props.pokemon.name){
+            console.log(props.pokemon.name)
             setIsGen(true)
         }
-    },[pokemon])
+    },[props.pokemon])
+
     
+
+    const pokemon = props.pokemon
     
+    const icons = `/icons/type_icons/class_icon_`
 
     if(isGen){
         return (

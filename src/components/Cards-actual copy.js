@@ -3,35 +3,29 @@ import React from "react"
 import pokeGenerator from "../poke-gen-final"
 import { type } from "@testing-library/user-event/dist/type"
 
-export default function Cards(){
+export default function Card(){
 
     const [isGen, setIsGen] = React.useState(false)
-    const [pokemon, setPokemon] = React.useState([])
+    const [pokemon, setPokemon] = React.useState("")
     
     const icons = `/icons/type_icons/class_icon_`
     
     React.useEffect(() => {
-        if(pokemon.length === 0){
-            generate()
-        }
-        if(pokemon.length === 3){
-            setIsGen(true)
-        }
-    },[pokemon.length])
-    
-    function generate(){
-        for(let i=0; i < 3; i++){
+        if(pokemon === ""){
             pokeGenerator().then(poke => {
-                setPokemon(prevPokemon => [...prevPokemon, poke])
+                setPokemon(() => poke)
             })
         }
-    }
+        if(pokemon !== ""){
+            setIsGen(true)
+        }
+    },[pokemon])
+    
+    
 
     if(isGen){
-        
         return (
         <div className="show">
-        { pokemon.map( pokemon => (
             <div key={pokemon.id}  className="card" style={{background: `${pokemon.borderColor}`}}>
                 <div className="card-wrap" style={{background: `linear-gradient(210deg, ${pokemon.backgroundType[0]} 0%,${pokemon.backgroundType[0]} 80%,  ${pokemon.backgroundType[1]} 100% )`}}>
                     <div className="card-top">
@@ -79,7 +73,6 @@ export default function Cards(){
                     </div>
                 </div>
             </div>
-        ))}
         </div>
         ) 
     } else return (

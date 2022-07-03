@@ -1,12 +1,24 @@
 import "./App.scss"
 import React from "react"
-import Cards from "./components/Cards-actual"
+import NavBar from "./components/NavBar"
 import Home from "./components/Home"
-import Card from "./components/Cards-actual"
+import Team from "./components/Team"
+import { ContextProvider } from "./Context"
+
+import {BrowserRouter as Router} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 
 export default function App(){
   
   return(
-      <Home/>
+    <ContextProvider>
+    <Router>
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<Home/>} />
+        <Route exact path="/team" element={<Team/>} />
+      </Routes>
+    </Router>
+    </ContextProvider>
   )
 }
