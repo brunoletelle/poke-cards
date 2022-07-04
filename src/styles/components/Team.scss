@@ -1,0 +1,24 @@
+.main{
+    background-color:  #213F9E;
+    height: auto;
+    padding: 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Monserrat', sans-serif;
+
+}
+
+.poke-container{
+    background-color: rgba(0, 0, 0, .15);
+    display: flex;
+    padding: 30px;
+    margin-top: 10px;
+
+    h2{
+        color: white;
+        font-weight: 400;
+    }
+}

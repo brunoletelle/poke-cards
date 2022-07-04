@@ -1,4 +1,4 @@
-import "./Cards-actual.scss"
+import "../styles/components/Cards-actual.scss"
 import {useEffect, useContext,useState} from "react"
 
 export default function Card(props){

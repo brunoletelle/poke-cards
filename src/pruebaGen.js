@@ -16,6 +16,7 @@ async function pokeGenerator(){
     const pokemon = {
         name: pokemonData.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
         id: pokemonData.id,
+        description: "",
         imageFront: pokemonData.sprites.front_default,
         imageBack: pokemonData.sprites.back_default,
         moves: pokemonData.moves,
@@ -42,6 +43,7 @@ async function pokeGenerator(){
     const specialData = await getDataMoves(3) // 3 por movimiento especial
     const specialMove = getMoves(specialData.moves)
 
+    await getDesc()
     statsGen()
     backgroundColor()
     borderColor()
@@ -49,6 +51,9 @@ async function pokeGenerator(){
     await moveSpec(specialMove.url,specialMove.name)
     
     return pokemon
+
+
+    //////////////////////////-----------FUNCIONES------------------/////////////////////////////////
 
     //OBTENGO LOS DATOS DE LOS MOVIMIENTOS
 
@@ -78,6 +83,7 @@ async function pokeGenerator(){
 //}
 
     // OBTENGO Y ORDENO LAS ESPCIFICACIONES DE LOS MOVIMIENTOS
+
     async function moveSpec(url, moveName){
         
         let response = await fetch(`${url}`)
@@ -96,6 +102,17 @@ async function pokeGenerator(){
                         
 
     }
+
+    // Obtengo la descripcion del pokemon en ingles
+
+    async function getDesc(){
+        let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${randomN}/`)
+        let data = await response.json()
+
+        pokemon.description = data.flavor_text_entries[0].flavor_text
+
+    }
+
 
     // Generador de Stats y DV del pokemon
 
@@ -177,6 +194,8 @@ async function pokeGenerator(){
         pokemon.backgroundType = typeColor
     }
 
+    // ASIGNO UN COLOR AL BORDE DE LA CARTA DE ACUERDO AL DV DEL POKEMON
+
     function borderColor(){
         if(pokemon.DV === 15){
             pokemon.borderColor = "linear-gradient(-210deg,#dedede,#ffffff 16%,#dedede 21%,#ffffff 24%,#caa1de 27%,#dea1ca 30%,#dedede 38%,#ffffff 45%,#ffffff 60%,#dedede 72%,#ffffff 80%,#dedede 84%,#caa1de 93%,#dea1ca)"
@@ -193,7 +212,7 @@ async function pokeGenerator(){
 
 }
 
-pokeGenerator()
+pokeGenerator().then( data => console.log(data.description))
 
 
 ///// 

@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext} from "react"
-import "./Home.scss"
+import "../styles/components/Home.scss"
 import Card from "./Cards-actual"
 import { Context } from "../Context"
 
