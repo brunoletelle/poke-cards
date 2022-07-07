@@ -109,8 +109,9 @@ async function pokeGenerator(){
         let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${randomN}/`)
         let data = await response.json()
 
-        pokemon.description = data.flavor_text_entries[0].flavor_text
+        const descArr = data.flavor_text_entries.filter((text) => text.language.name === "es")
 
+        pokemon.description = descArr[0].flavor_text
     }
 
 

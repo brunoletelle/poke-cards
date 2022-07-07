@@ -18,18 +18,33 @@ main{
     justify-content: center;
 }
 
+
 .card{
     //background: linear-gradient(to bottom,#FDE08D, #DF9F28, #8f6B29, #FDE08D, #DF9F28,#DF9F28, #8f6B29, #FDE08D, #DF9F28);
     
     width: 320px;
     height: 500px;
     padding: 6px 6px;
-    margin: 5px 10px;
     display: flex;
     justify-content: center;
     align-content: center;
     border-radius: 15px;
     box-shadow: 3px 3px 5px;
+    
+    &-selected{
+        width: 320px;
+        height: 500px;
+        padding: 6px 6px;
+        margin: 5px 10px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        border: 10px solid green;
+        border-radius: 15px;
+        box-shadow: 3px 3px 5px;
+        
+
+    }
 
     &-wrap{
         font-family: 'Source Sans Pro', sans-serif;

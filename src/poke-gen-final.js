@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid'
+
 export default async function pokeGenerator(){
 
     //const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -15,7 +17,7 @@ export default async function pokeGenerator(){
 
     const pokemon = {
         name: pokemonData.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
-        id: pokemonData.id,
+        id: nanoid(),
         description: "",
         imageFront: pokemonData.sprites.front_default,
         imageBack: pokemonData.sprites.back_default,
@@ -88,7 +90,6 @@ export default async function pokeGenerator(){
         
         let response = await fetch(`${url}`)
         let data = await response.json()
-
         
         pokemon.moveArray = [...pokemon.moveArray,
                             {   id: data.id,
@@ -103,14 +104,20 @@ export default async function pokeGenerator(){
 
     }
 
-    // Obtengo la descripcion del pokemon en ingles
+    // Obtengo la descripcion del pokemon en español
 
     async function getDesc(){
         let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${randomN}/`)
         let data = await response.json()
 
-        pokemon.description = data.flavor_text_entries[0].flavor_text
+        const descArr = data.flavor_text_entries.filter((text) => text.language.name === "en")
 
+        const intro = data.genera.filter(text => text.language.name === "en")
+        
+        const genus = intro[0].genus.split(" ")
+        
+        pokemon.description = { tittle: genus[0] + " Pokómon",
+                                body: descArr[0].flavor_text}
     }
 
 

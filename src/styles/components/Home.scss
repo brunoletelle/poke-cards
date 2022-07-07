@@ -67,10 +67,19 @@ body { margin:0; padding:0 }
       }
 }
 
-.card-list{
-    display: flex;
-    flex-direction: row;
-    transform: scale(0.8);
+.card{
+  margin: 20px;
+
+  &-list{
+      display: flex;
+      flex-direction: row;
+      transform: scale(0.8);
+  }
+
+  &-selected{
+    margin: 20px;
+    border: 10px solid lightgreen;
+  }
 }
 
 .card:hover{
@@ -102,4 +111,8 @@ button{
 
 button:hover{
   background-color: #3967FF;
+}
+
+button:disabled{
+  background-color: gray;
 }

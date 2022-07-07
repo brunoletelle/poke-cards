@@ -13,7 +13,7 @@ export default function NavBar(){
             <div className="top" style={{backgroundImage: "url(../background/back-top.png)"}}>
                 <img src={image} alt="Imagen de logo pokemon"/>
             </div>
-            <div className="nav">
+            <div className="nav" >
                 <div className="nav-main">
                     <RouteLink to="/" style={{ textDecoration: 'none' }}>
                         <h3>HOME</h3>
