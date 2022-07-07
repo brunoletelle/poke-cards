@@ -1,21 +1,19 @@
-import {useContext, useState} from "react"
+import {useContext, useEffect} from "react"
 import "../styles/components/Home.scss"
 import Card from "./Cards-actual"
 import { Context } from "../Context"
-import { nanoid } from "nanoid"
 
 export default function Home(){
 
     const {generateTeam, userTeam} = useContext(Context)
-
-    const [offBtn, setOffBtn] = useState(false)
-
-    function handleOnClick(){
-        for(let i = 0; i < 3 ; i++){
-            generateTeam()
+    
+    useEffect(() => {
+        if(userTeam.length < 3){
+            for(let i = 0 ; i < 3 ; i++){
+                generateTeam()
+            }
         }
-        setOffBtn(true)
-    }
+    }, []) 
 
     return(
         <div>
@@ -27,14 +25,12 @@ export default function Home(){
                         <h3>Vas a poder utilizarlos para combatir en la zona de batalla, y juntar monedas para conseguir nuevos</h3>
                         <h3>Pokomones en el Market</h3>
                     </div>
-                    <button disabled={offBtn} onClick={handleOnClick}>{offBtn ? "Equipo Seleccionado" : "Mostrar Mi Equipo"}</button>
+                    <h2>Conoce a tu equipo</h2>
                 </div>
-                
                 <div className="card-list">
-                {userTeam.map(pokomon => {return(
-                        <Card key={pokomon.id} className="card" pokemon={pokomon ? pokomon : "wait"}/>
-                        
-                        )})
+                {userTeam.map(pokomon => (
+                    <Card key={pokomon.id} className="card" pokemon={pokomon ? pokomon : "wait"}/>
+                        ))
                 }
                 </div>
             </div>

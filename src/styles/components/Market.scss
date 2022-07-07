@@ -1,11 +1,23 @@
-.market-container{
+.main{
     background-color:  whitesmoke;
     height: auto;
-    padding: 50px 0;
-    display: flex;
-    flex-direction: row;
+    padding: 50px 0px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
     justify-content: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     font-family: 'Monserrat', sans-serif;
+}
+
+.product{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &-image{
+        transform: scale(0.7);
+        margin: -70px;
+    }    
+    &-button{
+
+    }
 }

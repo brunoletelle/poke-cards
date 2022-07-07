@@ -1,13 +1,13 @@
 import '../styles/components/Market.scss'
 
-import {useState, useEffect, useContext} from "react"
+import {useEffect, useContext} from "react"
 import { Context } from '../Context'
 import Card from './Cards-actual'
 
 
 export default function Market(){
 
-    const {pokoMarket, setPokoMarket, generateMarket} = useContext(Context)
+    const {pokoMarket, generateMarket} = useContext(Context)
 
     useEffect(() => {
         if(pokoMarket.length < 20){
@@ -19,11 +19,14 @@ export default function Market(){
     
     return(
         <div className='main'>
-            {pokoMarket.map(pokomon => {return(
-                        <Card key={pokomon.id} className="card" pokemon={pokomon ? pokomon : "wait"}/>
-                        
-                        )})
-                }
+            {pokoMarket.map(pokomon =>(
+            <div className="product">
+                <div key={pokomon.id} className='product-image'>
+                    <Card  pokemon={pokomon ? pokomon : "wait"}/>
+                </div>
+                <button className='product-button'>Comprar</button>
+            </div>
+            ))}
         </div>
     )
 }
