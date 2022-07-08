@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 
-export default async function pokeGenerator(){
+export default async function pokeGenerator(DVmin, DVmax){
 
     //const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
         
@@ -29,6 +29,9 @@ export default async function pokeGenerator(){
         DV: "",
         background: `/background-images/${randomNumber(3,0)}.png`,
         backgroundType: [],
+        is_baby:false,
+        is_legendary:false,
+        is_mythical:false,
     }
     
     // TENGO QUE PEDIR TODOS LOS MOVES COMUNES Y TODOS LOS ESPECIALES, YA QUE NO VOY A USAR LOS DE ESTADO
@@ -104,7 +107,7 @@ export default async function pokeGenerator(){
 
     }
 
-    // Obtengo la descripcion del pokemon en español
+    // Obtengo la descripcion de la especie junto con su clase (baby - legendary - mythical)
 
     async function getDesc(){
         let response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${randomN}/`)
@@ -118,20 +121,24 @@ export default async function pokeGenerator(){
         
         pokemon.description = { tittle: genus[0] + " Pokómon",
                                 body: descArr[0].flavor_text}
+
+        pokemon.is_baby = data.is_baby
+        pokemon.is_legendary = data.is_legendary
+        pokemon.is_mythical = data.is_mythical
+        
     }
 
 
     // Generador de Stats y DV del pokemon
 
     function statsGen(){
-        const DV = randomNumber(15,1)
+        const DV = randomNumber(DVmax,DVmin)
         const level = randomNumber(29,25)
         
         pokemon.DV = DV
         pokemon.level = level
 
-        console.log("Pokemon: ", pokemon.name)
-        console.log("DV: ",pokemon.DV)
+        console.log("Generated Pokemon: ", pokemon.name)
 
         const hp = Math.floor((pokemon.stats[0].base_stat+DV)*2/100)*level + level + 10
         
