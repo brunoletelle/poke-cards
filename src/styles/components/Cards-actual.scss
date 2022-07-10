@@ -20,8 +20,6 @@ main{
 
 
 .card{
-    //background: linear-gradient(to bottom,#FDE08D, #DF9F28, #8f6B29, #FDE08D, #DF9F28,#DF9F28, #8f6B29, #FDE08D, #DF9F28);
-    
     width: 320px;
     height: 500px;
     padding: 6px 6px;
@@ -48,20 +46,12 @@ main{
 
     &-wrap{
         font-family: 'Source Sans Pro', sans-serif;
-        //background: #A5DEBC;
-        //background: linear-gradient(90deg, #5DE6DE 0%, #B58ECC 100% );
         width: 300px;
         height: 500px;
         padding: 0 10px;
         border-radius: 10px;
         justify-content: center;
         align-items: center;
-    /* 
-        display: flex;
-        flex-direction: column; */
-    
-        align-items: center;
-        justify-content: center;
     }
     
     /*----------- CARD TOP -------------*/
@@ -264,6 +254,10 @@ main{
         }
     }
 
+}
+
+.icon{
+    background-image: url('https://w7.pngwing.com/pngs/324/645/png-transparent-pokemon-go-gotcha-video-game-jynx-pokeball-orange-pokemon-technology.png');
 }
 
 hr {

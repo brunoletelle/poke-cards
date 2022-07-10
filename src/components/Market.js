@@ -44,9 +44,8 @@ export default function Market(){
     
     return(
         <div className='main'>
-
-            <Pack />
-            <Pack />
+            {cardPack.map( pack =>(<Pack type={pack.name}/>))}
+            
         </div>
     )
 }
