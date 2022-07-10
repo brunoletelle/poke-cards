@@ -21,7 +21,7 @@ function ContextProvider({children}){
                                                     cards: [] 
                                                 },
                                                 {
-                                                    name: "platinum",
+                                                    name: "perl",
                                                     cards: [] 
                                                 },
                                             ])
@@ -43,6 +43,7 @@ function ContextProvider({children}){
         }
     }
  */
+
     //GENERADOR DE PACK DE CARTAS
 
     function generateCardPack(cardDV){
@@ -54,16 +55,16 @@ function ContextProvider({children}){
         if(cardDV === "bronze"){
             minDV = 9
             maxDV = 10
-            size = 8
+            size = 5
         } else if(cardDV === "silver"){
             minDV = 11
             maxDV = 12
-            size = 5
+            size = 4
         } else if(cardDV === "gold"){
             minDV = 13
             maxDV = 14
-            size = 3
-        } else if(cardDV === "platinum"){
+            size = 2
+        } else if(cardDV === "perl"){
             minDV = 15
             maxDV = 15
             size = 1
