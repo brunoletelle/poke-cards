@@ -1,6 +1,6 @@
 import '../styles/components/Market.scss'
 
-import {useEffect, useContext} from "react"
+import {useState, useContext} from "react"
 import { Context } from '../Context'
 import ModalPack from './ModalPack'
 import Pack from "./Pack"
@@ -14,6 +14,8 @@ export default function Market(){
     const {cardPack, generateCardPack} = useContext(Context)
 
     const [isOpen, openModal, closeModal] = useModal(false)
+
+    const [typeBuy, setTypeBuy] = useState("bronze")
 
     const packTypes = [{type: "bronze", maxCard: 5},
                         {type: "silver", maxCard: 4},
@@ -31,7 +33,8 @@ export default function Market(){
             }
         }
 
-        setTimeout(openModal, 1000)
+        openModal()
+        setTypeBuy(type)
     }
 
     return(
@@ -50,7 +53,7 @@ export default function Market(){
             </div>
 
             <Modal isOpen={isOpen} close={closeModal}>
-                    <ModalPack name="bronze"/>
+                    <ModalPack name={typeBuy}/>
             </Modal>
 
         </div>

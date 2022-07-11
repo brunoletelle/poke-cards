@@ -5,6 +5,7 @@ import Home from "./components/Home"
 import Team from "./components/Team"
 import Market from "./components/Market"
 import Battleground from "./components/Battleground"
+import Carta from "./components/Carta"
 import { ContextProvider } from "./Context"
 
 import {BrowserRouter as Router} from 'react-router-dom';
@@ -21,6 +22,7 @@ export default function App(){
         <Route exact path="/team" element={<Team/>} />
         <Route exact path="/market" element={<Market/>} />
         <Route exact path="/battleground" element={<Battleground/>} />
+        <Route exact path="/card" element={<Carta/>} />
       </Routes>
     </Router>
     </ContextProvider>

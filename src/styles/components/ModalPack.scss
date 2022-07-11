@@ -1,11 +1,9 @@
 .modal-pack{
     &-container{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        overflow-x:auto;
-        background-color: aquamarine;
+        display: flex;
     }
     &-card{
-        transform: scale(0.6)
+        transform: scale(0.6);
+        margin: -80px -80px;
     }
 }

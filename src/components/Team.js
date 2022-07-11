@@ -28,24 +28,7 @@ export default function Team(){
                     <Card pokemon={pokomon} selectPokomon={() => selectPokomon(pokomon)}/>
                 </div>
                 ))
-            }
-            
-            {/* 
-                userPokomons.map(pokomon => { return(
-                    <div className="poke-container">
-                        <Card pokemon={pokomon} />
-                        <div className="info-container">
-                            <div className="info-description">
-                                <h2 className="parrafo">{pokomon.description.tittle}</h2>
-                                <h3 className="parrafo">{pokomon.description.body}</h3>
-                            </div>
-                            <div className="info-moves">
-                            </div>
-                        </div>  
-                    </div>)
-                })
-                 */}
-            
+            }            
             
         </div>
     )

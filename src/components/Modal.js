@@ -5,8 +5,11 @@ export default function Modal({isOpen, close, children}){
     return(
         <article className={`modal ${isOpen && "is-open"}`}>
             <div className="modal-container"  onClick={() => close()}>
-
-                {children}
+                <h2>Compra Exitosa!</h2>
+                <button className="modal-close" onClick={() => close()}>Cerrar</button>
+                <div>
+                    {children}
+                </div>
             </div>
         </article>
     )
