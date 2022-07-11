@@ -1,0 +1,11 @@
+.modal-pack{
+    &-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        overflow-x:auto;
+        background-color: aquamarine;
+    }
+    &-card{
+        transform: scale(0.6)
+    }
+}

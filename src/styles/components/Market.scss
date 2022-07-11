@@ -2,11 +2,14 @@
     background-color:  whitesmoke;
     height: auto;
     padding: 20px 50px;
+    font-family: 'Monserrat', sans-serif;
+}
+
+.pack-market{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-
     justify-content: center;
-    font-family: 'Monserrat', sans-serif;
+
 }
 
 .product{
@@ -29,4 +32,12 @@
     align-items: center;
     margin: 0 5px;
     padding-bottom: 20px;
+}
+
+.modal{
+    display: none;
+}
+
+.modal.is-open{
+    display: flex;
 }
