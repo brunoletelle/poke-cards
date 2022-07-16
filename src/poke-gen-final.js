@@ -93,6 +93,9 @@ export default async function pokeGenerator(DVmin, DVmax){
         
         let response = await fetch(`${url}`)
         let data = await response.json()
+
+        let res = await fetch(data.type.url)
+        let typeDamage = await res.json()
         
         pokemon.moveArray = [...pokemon.moveArray,
                             {   id: data.id,
@@ -102,10 +105,23 @@ export default async function pokeGenerator(DVmin, DVmax){
                                 power: data.power,
                                 type: data.type.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                 classDamage: data.damage_class.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
+                                no_damage_to: damageRelations(typeDamage.damage_relations.no_damage_to),
+                                half_damage_to: damageRelations(typeDamage.damage_relations.half_damage_to),
+                                double_damage_to: damageRelations(typeDamage.damage_relations.double_damage_to),
+                                no_damage_from: damageRelations(typeDamage.damage_relations.no_damage_from),
+                                half_damage_from: damageRelations(typeDamage.damage_relations.half_damage_from),
+                                double_damage_from: damageRelations(typeDamage.damage_relations.double_damage_from),
                             }]
-                        
 
+        function damageRelations(damage){ // OBTENGO QUE TANTO DAÑO CAUSA SEGUN EL TIPO DE POKEMON
+            let damageArray = []
+            damageArray = damage.map(type => (type.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())))
+            console.log(damageArray)
+            return (damageArray)
+        }
+        
     }
+    
 
     // Obtengo la descripcion de la especie junto con su clase (baby - legendary - mythical)
 
@@ -151,6 +167,7 @@ export default async function pokeGenerator(DVmin, DVmax){
         for(let i = 0 ; i<6 ; i++){
             pokemon.stats[i] = {...pokemon.stats[i], levelDV_stat: stat[i]}
         }
+
     }
 
     // Color de fondo de la carta de acuerdo al tipo de pokemon

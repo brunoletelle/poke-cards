@@ -6,11 +6,7 @@ const Context = createContext()
 function ContextProvider({children}){
 
     const [userPokomons, setUserPokomons] = useState([])
-
     const [userTeam, setUserTeam] = useState([])
-
-    const [cpuTeam, setCpuTeam] = useState([])
-
     const [pokoMarket, setPokoMarket] = useState([])
     const [cardPack, setCardPack] = useState([ {
                                                     name: "bronze",
@@ -38,18 +34,16 @@ function ContextProvider({children}){
             })
         }
     }
-
-    function generateAdvTeam(){
-        if(cpuTeam.length < 3){
-            for(let i = 0; i < 3; i++){
-                pokeGenerator(5,15).then(poke => {
-                    setCpuTeam(prevPokomon => [...prevPokomon,poke])
-                })
-            }
+/* 
+    function generateMarket(){
+        if(pokoMarket.length < 20){
+            pokeGenerator(9,15).then(poke => {
+                setPokoMarket(prevMarket => [...prevMarket,poke])
+            })
         }
-
     }
-    
+ */
+
     //GENERADOR DE PACK DE CARTAS
 
     function generateCardPack(cardDV){
@@ -78,7 +72,7 @@ function ContextProvider({children}){
 
         const pack = cardPack.find( card => card.name === cardDV )
                            
-        if(pack.cards.length < size){     // SI EL PACK TIENE MENOS DE 5 CARTAS
+        if(pack.cards.length < size){                          // SI EL PACK TIENE MENOS DE 5 CARTAS
             pokeGenerator(minDV, maxDV).then(poke => {      
                 setCardPack((prevPack) => {
                     const newPack = prevPack.map(pac => {
@@ -100,9 +94,7 @@ function ContextProvider({children}){
     }
 
     return(
-        <Context.Provider value={{userPokomons, setUserPokomons, userTeam, setUserTeam, generateTeam, 
-                                    cardPack, setCardPack, generateCardPack, pokoMarket, setPokoMarket,
-                                    cpuTeam, generateAdvTeam}}>
+        <Context.Provider value={{userPokomons, userTeam, setUserTeam, generateTeam, cardPack, generateCardPack, pokoMarket, setPokoMarket}}>
             {children}
         </Context.Provider>
     )

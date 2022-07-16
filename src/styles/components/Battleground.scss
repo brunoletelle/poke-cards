@@ -1,0 +1,113 @@
+.main-battle{
+    
+    height: 100vh;
+    width: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.battle-background{
+    position: relative;
+    border: 2px solid lightgray;
+    border-radius: 20px;
+    width: 800px;
+    height: 500px;;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.userPokemon-img{
+    position: absolute;
+    bottom: -2rem;
+    left: 1rem;
+    width: 300px;
+}
+
+.bench{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: -8rem;
+    bottom: 0rem;
+    width: 120px;
+    border-radius: 20px;
+}
+
+.benchPokemon-img{
+    
+    border-radius: 20px;
+    background-color: lightblue;
+    margin-bottom: 2px;
+    cursor:pointer;
+
+}
+
+.pcPokemon-img{
+    position: absolute;
+    top: 6rem;
+    right: 1rem;
+    width: 200px;
+}
+
+.progress-bar {
+    border: 2px solid rgb(114, 114, 247);
+    
+    border-radius: 14px;
+    padding: 1px;
+    width: 400px;
+ } 
+ 
+.progress-bar > div {
+    color: white;
+    background: rgb(114, 114, 247);
+    overflow: hidden;
+    white-space: nowrap;
+    width: 300px;
+    border-radius: 10px;
+    animation: progress-bar 1s;
+ } 
+ 
+ @keyframes progress-bar {
+   0% { width: 0; }
+ } 
+
+ .selected-info{
+    position: absolute;
+    bottom: -8rem;
+    width: 800px;
+    height: 120px;
+ }
+
+ .moves{
+    display: flex;
+    flex-direction: row;
+
+    &-button{
+        width: 250px;
+        display: flex;
+        align-items: center;
+        border: 1px solid black;
+        border-radius: 15px;
+        color: white;
+        background-color: black;
+        margin: 3px;
+        cursor: pointer;
+
+        img{
+            width: 30px;
+            height: 30px;
+            margin: 1px 10px;
+        }
+        h3{
+            margin: 12px 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 400;
+        }
+    }
+
+ }

@@ -19,8 +19,8 @@ export default function NavBar(){
                         <h3>HOME</h3>
                     </RouteLink>
                     {userPokomons.length >= 3 &&
-                    <RouteLink to="/team" style={{ textDecoration: 'none' }}>
-                        <h3>TEAM</h3>
+                    <RouteLink to="/pokodex" style={{ textDecoration: 'none' }}>
+                        <h3>POKODEX</h3>
                     </RouteLink>
                     }
                     <RouteLink to="/battleground" style={{ textDecoration: 'none' }} >
