@@ -15,7 +15,7 @@
     border: 2px solid lightgray;
     border-radius: 20px;
     width: 800px;
-    height: 500px;;
+    height: 450px;;
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -23,28 +23,35 @@
 
 .userPokemon-img{
     position: absolute;
-    bottom: -2rem;
+    bottom: -1.5rem;
     left: 1rem;
     width: 300px;
 }
 
-.bench{
+.userBench{
     position: absolute;
     display: flex;
     flex-direction: column;
-    left: -8rem;
+    left: -7rem;
     bottom: 0rem;
-    width: 120px;
+    width: 100px;
     border-radius: 20px;
 }
 
-.benchPokemon-img{
-    
-    border-radius: 20px;
-    background-color: lightblue;
-    margin-bottom: 2px;
-    cursor:pointer;
 
+.userBenchPokemon {
+
+    background-color: lightblue;
+    border-radius: 20px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &-img{
+        cursor:pointer;
+        filter:brightness(1);
+    }
 }
 
 .pcPokemon-img{
@@ -54,14 +61,41 @@
     width: 200px;
 }
 
+.cpuBench{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    right: -7rem;
+    top: 0rem;
+    width: 100px;
+    border-radius: 20px;
+}
+
+
+.cpuBenchPokemon {
+
+    background-color: lightblue;
+    border-radius: 20px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &-img{
+        cursor:pointer;
+        filter:brightness(0);
+    }
+}
+
+
 .progress-bar {
     border: 2px solid rgb(114, 114, 247);
     
     border-radius: 14px;
     padding: 1px;
     width: 400px;
- } 
- 
+} 
+
 .progress-bar > div {
     color: white;
     background: rgb(114, 114, 247);
@@ -81,6 +115,22 @@
     bottom: -8rem;
     width: 800px;
     height: 120px;
+    h3{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 400;
+        margin: 0px 0px 4px 5px;
+    }
+ }
+
+ .currentAdv-info{
+    position: absolute;
+    top: -4rem;
+    right: 0rem;
+    h3{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 400;
+        margin: 0px 0px 4px 5px;
+    }
  }
 
  .moves{
@@ -111,3 +161,20 @@
     }
 
  }
+ 
+.progress-bar-cpu {
+    border: 2px solid rgb(114, 114, 247);
+    border-radius: 14px;
+    padding: 1px;
+    width: 400px;
+} 
+
+.progress-bar-cpu > div {
+    color: white;
+    background: rgb(114, 114, 247);
+    overflow: hidden;
+    white-space: nowrap;
+    width: 300px;
+    border-radius: 10px;
+    animation: progress-bar 1s;
+ } 

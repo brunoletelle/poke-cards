@@ -1,4 +1,6 @@
 export default function attack(attacker, defender, moveSpec){
+
+    console.log(moveSpec.accuracy)
     
     //Nivel del atacante
     const lv = attacker.level

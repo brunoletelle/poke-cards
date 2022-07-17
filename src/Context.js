@@ -32,10 +32,12 @@ function ContextProvider({children}){
 
     function generateTeam(){
         if(userPokomons.length <3){
-            pokeGenerator(5,12).then(poke => {
-                setUserPokomons(prevPokomon => [...prevPokomon,poke])
-                setUserTeam(prevPokomon => [...prevPokomon,poke])
-            })
+            for(let i = 0; i < 3; i++){
+                pokeGenerator(5,12).then(poke => {
+                    setUserPokomons(prevPokomon => [...prevPokomon,poke])
+                    setUserTeam(prevPokomon => [...prevPokomon,poke])
+                })
+            }
         }
     }
 

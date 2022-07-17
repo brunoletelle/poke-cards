@@ -101,7 +101,7 @@ export default async function pokeGenerator(DVmin, DVmax){
                             {   id: data.id,
                                 name: moveName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                 description: data.effect_entries[0].effect,
-                                precision: data.accuracy,
+                                accuracy: data.accuracy,
                                 power: data.power,
                                 type: data.type.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                 classDamage: data.damage_class.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
@@ -116,7 +116,7 @@ export default async function pokeGenerator(DVmin, DVmax){
         function damageRelations(damage){ // OBTENGO QUE TANTO DAÑO CAUSA SEGUN EL TIPO DE POKEMON
             let damageArray = []
             damageArray = damage.map(type => (type.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())))
-            console.log(damageArray)
+            
             return (damageArray)
         }
         

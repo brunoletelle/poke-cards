@@ -8,11 +8,9 @@ export default function Home(){
     const {generateTeam, userTeam} = useContext(Context)
     
     useEffect(() => {
-        if(userTeam.length < 3){
-            for(let i = 0 ; i < 3 ; i++){
-                generateTeam()
-            }
-        }
+
+        generateTeam()
+        
     }, []) 
 
     return(
