@@ -7,10 +7,35 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .load-battle{
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &-msj{
+        width: 750px;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 30px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        align-items: center;
+        //clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+        background-color: white;
+        border: 2px solid white;
+        border-radius: 15px;
+        h3{
+            margin: 30px;
+            font-size: 25px;
+            font-weight: 400;
+            text-align: center;
+        }
+    }
+
     button{
         width: 300px;
         height: 60px;
@@ -24,6 +49,7 @@
     }
     button:hover{
         animation: battle-button 1s forwards;
+        cursor: pointer;
     }
 } 
 
@@ -41,7 +67,7 @@
     border: 2px solid lightgray;
     border-radius: 20px;
     width: 800px;
-    height: 450px;;
+    height: 450px;
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -117,7 +143,8 @@
 .progress-bar {
     border: 2px solid rgb(114, 114, 247);
     
-    border-radius: 14px;
+        //clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+    //border-radius: 14px;
     padding: 1px;
     width: 400px;
 } 
@@ -127,8 +154,7 @@
     background: rgb(114, 114, 247);
     overflow: hidden;
     white-space: nowrap;
-    width: 300px;
-    border-radius: 10px;
+    //border-radius: 10px;
     animation: progress-bar 1s;
  } 
  
@@ -204,3 +230,67 @@
     border-radius: 10px;
     animation: progress-bar 1s;
  } 
+
+ .modal-battle{
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+
+    img{
+        height: 250px;
+        width: auto;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+
+    h2{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-weight: 400;
+    }
+
+
+    button{
+        width: 220px;
+        height: 30px;
+        border: none;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-family: 'Monserrat', sans-serif;
+        //color: #213F9E;
+        color: black;
+        font-size: 15px;
+        font-weight: 600;
+        //background-color: #FFD538;
+        background-color: white;
+        box-shadow: 1px 1px 1px black;
+        border-radius: 10px;
+
+        &:hover{
+            background-color: rgb(247, 247, 247);
+            cursor: pointer;
+        }
+    }
+}
+
+.damaged{
+    animation: shake-damage 0.5s;
+
+}
+
+@keyframes shake-damage {
+    0% { transform: translate(1px, 1px) rotate(0deg); filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8); }
+  }

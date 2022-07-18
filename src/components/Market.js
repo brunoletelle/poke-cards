@@ -11,7 +11,7 @@ import { useModal } from '../hooks/useModal'
 
 export default function Market(){
 
-    const {cardPack, generateCardPack} = useContext(Context)
+    const {cardPack, generateCardPack, inBattle} = useContext(Context)
 
     const [isOpen, openModal, closeModal] = useModal(false)
 
@@ -39,7 +39,12 @@ export default function Market(){
 
     return(
         
-        <div className='main-market'>
+        <div className='main-market' style={{backgroundImage: "url(../background/background-market.png)"}}>
+            {inBattle ?
+            <div className='warning-battle-market'>
+                <h3>Durante la batalla no puedes comprar cartas</h3>
+            </div>
+            :
             <div className='pack-market'>
                 {packTypes.map(pack => (
                     <div key={nanoid()} className='pack-product'>
@@ -51,8 +56,8 @@ export default function Market(){
                     </div>)
                 )}
             </div>
-
-            <Modal isOpen={isOpen} close={closeModal}>
+            }
+            <Modal isOpen={isOpen} close={closeModal} hideClose={false}>
                     <ModalPack name={typeBuy}/>
             </Modal>
 

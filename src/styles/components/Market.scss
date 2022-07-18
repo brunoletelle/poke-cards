@@ -1,8 +1,31 @@
 .main-market{
     background-color:  whitesmoke;
+    width: 100vp;
+    min-height: 500px;
     height: auto;
-    padding: 20px 50px;
+    padding: 50px 50px;
     font-family: 'Monserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: auto;
+}
+
+.warning-battle-market{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    height: 200px;
+    background-color: white;
+    border-radius: 15px;
+    h3{
+        text-align: center;
+
+    }
 }
 
 .pack-market{

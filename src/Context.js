@@ -43,7 +43,12 @@ function ContextProvider({children}){
         }
     }
 
-    function generateAdvTeam(){
+    function generateAdvTeam(regenerate){
+        
+        if(regenerate){
+            setCpuTeam([])
+        }
+
         if(cpuTeam.length < 3){
             for(let i = 0; i < 3; i++){
                 pokeGenerator(5,15).then(poke => {
@@ -106,7 +111,7 @@ function ContextProvider({children}){
     return(
         <Context.Provider value={{userPokomons, setUserPokomons, userTeam, setUserTeam, generateTeam, 
                                     cardPack, setCardPack, generateCardPack, pokoMarket, setPokoMarket,
-                                    cpuTeam, generateAdvTeam, inBattle, setInBattle}}>
+                                    cpuTeam, setCpuTeam, generateAdvTeam, inBattle, setInBattle}}>
             {children}
         </Context.Provider>
     )

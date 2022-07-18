@@ -13,6 +13,7 @@ export default function ModalPack(props){
     function addPackToUser(){
         packPokomons[0].cards.map(pokomon => {
             setUserPokomons(prevUser => [...prevUser, pokomon])
+            return pokomon
         })
 
         setCardPack((prevPack) => {
@@ -25,6 +26,7 @@ export default function ModalPack(props){
             })
             return(newPack)
         })
+
     }
 
     return(

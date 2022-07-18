@@ -6,7 +6,7 @@ import { nanoid } from "nanoid"
 
 export default function Team(){
 
-    const {userPokomons, userTeam, setUserTeam} = useContext(Context)
+    const {userPokomons, userTeam, setUserTeam, inBattle} = useContext(Context)
 
     //Selector de pokomones 
 
@@ -18,18 +18,35 @@ export default function Team(){
         }
     }
 
+    const poke = userPokomons.sort(function (a, b) {
+        if (a.type[0].type.name > b.type[0].type.name) {
+          return 1;
+        }
+        if (a.type[0].type.name < b.type[0].type.name) {
+          return -1;
+        }
+        return 0;
+      })
+
     
 
     return(
-        <div className="main-team">
-            {
-            userPokomons.map(pokomon => (
-                <div key={nanoid()} id={pokomon.id} className={userTeam.some(poke => poke.id === pokomon.id) ? "poke-container poke-selected" : "poke-container"} >
-                    <Card pokemon={pokomon} selectPokomon={() => selectPokomon(pokomon)}/>
-                </div>
+        <div className="main-pokodex" style={{backgroundImage: "url(../background/background-pokodex.png)"}}>
+        {inBattle ?
+        <div className="warning-battle-pokodex">
+            <h3>Durante la batalla no puedes cambiar tu equipo</h3>
+        </div>
+        :
+            <div className="pokodex-cards">
+                {
+                poke.map(pokomon => (
+                    <div key={nanoid()} id={pokomon.id} className={userTeam.some(poke => poke.id === pokomon.id) ? "poke-container poke-selected" : "poke-container"} >
+                        <Card pokemon={pokomon} selectPokomon={() => selectPokomon(pokomon)}/>
+                    </div>
                 ))
-            }            
-            
+                }
+            </div>
+        }            
         </div>
     )
 }

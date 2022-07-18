@@ -29,6 +29,7 @@
 
 .modal-close:hover{
     transform: scale(1.2);
+    cursor: pointer;
 }
 .modal-container{
     
@@ -39,7 +40,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(189,236,182, 0.75);
+    background-color: rgba(182, 203, 236, 0.75);
     border-radius: 15px;
     padding: 0 10px;
 
