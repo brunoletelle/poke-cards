@@ -3,20 +3,24 @@ import { Context } from "../Context"
 import "../styles/components/Battleground.scss"
 import { nanoid } from "nanoid"
 import attack from "../functions/attack"
+import Modal from "./Modal"
+import { useModal } from "../hooks/useModal"
 
 export default function Battleground(){
 
-   const {userTeam, generateTeam, generateAdvTeam, cpuTeam} = useContext(Context)
+   const {userTeam, generateTeam, generateAdvTeam, cpuTeam, inBattle, setInBattle} = useContext(Context)
+   
+   const [isOpen, openModal, closeModal] = useModal(false)
+
    const [isSelected, setIsSelected] = useState(0)
    const [currentAdv, setCurrentAdv] = useState(0)
-   const [turn, setTurn] = useState(true)
+   const [userTurn, setUserTurn] = useState(true)
    const [battleTeam, setBattleTeam] = useState([...userTeam])
    const [battleCpuTeam, setBattleCpuTeam] = useState([...cpuTeam])
    const [cpuWin, setCpuWin] = useState(false)
    const [userWin, setUserWin] = useState(false)
-
-   //let battleTeam = [...userTeam]
-   //let battleCpuTeam = [...cpuTeam]
+   const [userLife, setUserLife] = useState([true, true, true])
+   const [cpuLife, setCpuLife] = useState([true, true, true])
    
    const icons = `/icons/type_icons/class_icon_`
 
@@ -25,7 +29,7 @@ export default function Battleground(){
   }
     
    useEffect(() => {
-        // ESTO VA A TRAER UN ERROR POR EL LENGTH        
+           
       generateTeam()
       generateAdvTeam()
    }, [])
@@ -35,98 +39,154 @@ export default function Battleground(){
       setBattleCpuTeam([...cpuTeam])
    }, [userTeam, cpuTeam])
 
-
    useEffect(() =>{
-      if(!turn){
+      if(!userTurn){
          setTimeout( () =>{
-            if(battleCpuTeam[currentAdv].stats[0].base_stat > 0){
-               attackControl(battleCpuTeam[currentAdv], battleTeam[isSelected], battleCpuTeam[currentAdv].moveArray[randomNumber(1,0)])
-            } else {
-                  setCurrentAdv(prevAdv => {
-                     if(prevAdv !== 2){
-                        return (prevAdv + 1)
-                     } else {
-                        setUserWin(true)
-                        return 0
-                     }
-                  })
-                  setTurn(!turn)
-               }
-         }
+            cpuAutoAttack()}
          ,2000)
       }
-      if(battleTeam.lenght ===3 ){
-      const lose = battleTeam.filter(pokomon => pokomon.stats[0].base_stat !== 0)
-      if(lose.length === 0){
-         console.log(lose)
-         setCpuWin(true)
-      }} 
+
+      // ATAQUE AUTOMATICO CPU
+      function cpuAutoAttack(){
+         if(battleCpuTeam[currentAdv].stats[0].base_stat > 0){
+            attackControl(battleCpuTeam[currentAdv], battleTeam[isSelected], battleCpuTeam[currentAdv].moveArray[randomNumber(1,0)])
+         } else {
+               setCurrentAdv(prevAdv => {
+                  if(prevAdv !== 2){
+                     return (prevAdv + 1)
+                  } else {
+                     setUserWin(true)
+                     return 2
+                  }
+               })
+               if(currentAdv !== 2){
+                  setTimeout( () => {
+                     attackControl(battleCpuTeam[currentAdv], battleTeam[isSelected], battleCpuTeam[currentAdv].moveArray[randomNumber(1,0)])
+                  },1000)
+               }
+               //setUserTurn(!userTurn)
+            }
+      }
+   },[userTurn])
+
+   //Chequea que los pokomones puedan continuar peleando
+   useEffect(() => {
+
+      if(battleTeam.length === 3 && battleCpuTeam.length ===3){
+
+         const userLose = battleTeam.filter(pokomon => pokomon.stats[0].base_stat !== 0)
+
+         if(userLose.length === 0){
+            setCpuWin(true)
+            console.log("PERDISTE LOOSER")
+         }
+         const cpuLose = battleCpuTeam.filter(pokomon => pokomon.stats[0].base_stat !== 0)
+
+         if(cpuLose.length === 0){
+            setUserWin(true)
+            console.log("GANASTE WINNER")
+         }
+      }
       
-   },[turn])
+   }, [userTurn])
+   
+   function checkLife(){
+      setUserLife(() =>{
+         const userLive = battleTeam.map(pokomon => {
+                           if(pokomon.stats[0].base_stat !== 0){
+                              return true
+                           } else return false
+                        })
+         return userLive
+      } )
+
+      setCpuLife(() =>{
+         const cpuLive = battleCpuTeam.map(pokomon => {
+                           if(pokomon.stats[0].base_stat !== 0){
+                              return true
+                           } else return false
+                        })
+         return cpuLive
+      } )
+      
+      if(cpuLife === [false,false,false]){
+         setUserWin(true)
+      }
+   }
 
    useEffect(() => {
-      console.log("CPU WIN", cpuWin)
 
       if(userWin){
-         console.log("GANASTE")
       }
       if(cpuWin){
-         console.log("PERDISTE")
       }
 
    },[userWin,cpuWin])
 
 
-   //FUNCION QUE ACTUALIZA LA BARRA DE VIDA
+   //Barra de vida 
    function hpBar(fullHp,leftHp){
       const lifeLeft = Math.floor((leftHp/fullHp)*100)
       return( `${lifeLeft}%`)
    }
-    
-   //Control de ataque, cambio de vida del defensor y manejo de turno
-   function attackControl(attacker, defender, move){
+   
+  //Control de ataque, cambio de vida del defensor y manejo de turno
+  function attackControl(attacker, defender, move){
 
-      const damage = attack(attacker, defender, move)
+   let damage = 0
+   
+   if(battleTeam.length === 3 && battleCpuTeam.length ===3){
+      checkLife()
+   }
 
-      let hp = defender.stats[0].base_stat - damage
-      if(hp < 0){
-         hp = 0
-      }
+   //Obtengo el daño causado por el ataque 
+   if(attacker.stats[0].base_stat === 0){
+      damage = 0
+   } else damage = attack(attacker, defender, move)
       
-      if(cpuTeam.some(poke => poke.id === defender.id)){
-         setBattleCpuTeam(prevCpuTeam => {
-            const arr = prevCpuTeam.map(pokomon => {
+   let hp = defender.stats[0].base_stat - damage
+   if(hp < 0){
+      hp = 0
+   }
+   
+   //Actualizo la vida del pokomon que defiende
+   if(cpuTeam.some(poke => poke.id === defender.id)){
+      setBattleCpuTeam(prevCpuTeam => {
+         const arr = prevCpuTeam.map(pokomon => {
+            if(pokomon.id === defender.id){
+               const pokomonNewHp = pokomon.stats.map( st => {
+                                                      if(st.stat.name === "hp"){
+                                                         return({...st, base_stat: hp})
+                                                      } else return (st)
+                                                   })
+                              return {...pokomon, stats: pokomonNewHp}
+                           } else return pokomon
+                     })
+         return arr
+      })
+   } else setBattleTeam(prevTeam => {
+            const arr = prevTeam.map(pokomon => {
                if(pokomon.id === defender.id){
                   const pokomonNewHp = pokomon.stats.map( st => {
                                                          if(st.stat.name === "hp"){
                                                             return({...st, base_stat: hp})
                                                          } else return (st)
                                                       })
-                                 return {...pokomon, stats: pokomonNewHp}
-                              } else return pokomon
-                        })
+                  return {...pokomon, stats: pokomonNewHp}
+               } else return pokomon
+            })
             return arr
          })
-      } else setBattleTeam(prevTeam => {
-               const arr = prevTeam.map(pokomon => {
-                  if(pokomon.id === defender.id){
-                     const pokomonNewHp = pokomon.stats.map( st => {
-                                                            if(st.stat.name === "hp"){
-                                                               return({...st, base_stat: hp})
-                                                            } else return (st)
-                                                         })
-                     return {...pokomon, stats: pokomonNewHp}
-                  } else return pokomon
-               })
-               return arr
-            })
 
-      setTurn(prevTurn => !prevTurn)
-   }
-    
+   //Cambio de turno
+   checkLife()
+   setUserTurn(prevTurn => !prevTurn)
+  }
+   
     
    return(
-      battleTeam.length === 3 && battleCpuTeam.length === 3 ?
+      battleTeam.length === 3 && battleCpuTeam.length === 3 && inBattle ?
+
       <div className="main-battle">
          <div className="battle-background" style={{backgroundImage: "url(../background/gym.png)"}}>
             <img className="userPokemon-img" src={battleTeam[isSelected].imageBack} alt="pokomon selected back" />
@@ -140,9 +200,9 @@ export default function Battleground(){
             </div>
 
             <div className="cpuBench">
-               {battleCpuTeam.map( (pokemon) => (
+               {battleCpuTeam.map( (pokemon, index) => (
                   <div className="cpuBenchPokemon" key={nanoid()} >
-                     <img className="cpuBenchPokemon-img" src={pokemon.imageFront} alt="pokomon selected back" />
+                     <img className="cpuBenchPokemon-img" src={pokemon.imageFront} style={{ filter: index === currentAdv ? "brightness(1)": "brightness(0)" }} alt="pokomon selected back" />
                   </div>
                ))}
             </div>
@@ -168,7 +228,7 @@ export default function Battleground(){
 
                <div className="moves">
                   {battleTeam[isSelected].moveArray.map( move =>
-                     <div className="moves-button" onClick={() => attackControl(battleTeam[isSelected], battleCpuTeam[currentAdv], move )} key={nanoid()} >
+                     <div className="moves-button" onClick={userTurn && userLife[isSelected] ? () => attackControl(battleTeam[isSelected], battleCpuTeam[currentAdv], move ) : undefined} key={nanoid()} >
                         <img src={icons+`${move.type.toLowerCase()}.png`} alt="move icon" />
                         <h3>{move.name}</h3>
                         <h3>{move.power}</h3>
@@ -179,10 +239,17 @@ export default function Battleground(){
             </div>
 
          </div>
+         
+         <Modal isOpen={isOpen} close={closeModal}>
+            
+         </Modal>
+
+
+
       </div>
       : 
-      <div>
-         <h2>Tu equipo no esta completo aún, debes tener selecionados 3 pokomons para iniciar la batalla</h2>
+      <div className="load-battle main-battle">
+         <button onClick={() => setInBattle(true)}>INICIAR BATALLA</button>
       </div>
         
     )

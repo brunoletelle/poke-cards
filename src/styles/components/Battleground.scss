@@ -10,6 +10,32 @@
 
 }
 
+.load-battle{
+    button{
+        width: 300px;
+        height: 60px;
+        font-size: 20px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color:#213F9E;
+        background-color: #FFD538;
+        border: none;
+        clip-path: polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%);
+
+    }
+    button:hover{
+        animation: battle-button 1s forwards;
+    }
+} 
+
+@keyframes battle-button {
+    0% { 
+      width: 300px; }
+    100% { 
+    width: 400px; }
+
+} 
+    
+
 .battle-background{
     position: relative;
     border: 2px solid lightgray;

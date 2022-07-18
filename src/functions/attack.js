@@ -1,6 +1,6 @@
 export default function attack(attacker, defender, moveSpec){
 
-    console.log(moveSpec.accuracy)
+    
     
     //Nivel del atacante
     const lv = attacker.level
@@ -69,6 +69,5 @@ export default function attack(attacker, defender, moveSpec){
     
     const damage = Math.floor(((((2 * lv / 5 + 2) * att * power / defense) / 50) * primMod + 2) * stab * effectType1 * effectType2 * segMod * rnd / 100) * ch; 
    
-    console.log("damage", damage)
     return(damage)
 }

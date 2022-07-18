@@ -5,6 +5,8 @@ const Context = createContext()
 
 function ContextProvider({children}){
 
+    const [inBattle, setInBattle] = useState(false)
+
     const [userPokomons, setUserPokomons] = useState([])
 
     const [userTeam, setUserTeam] = useState([])
@@ -104,7 +106,7 @@ function ContextProvider({children}){
     return(
         <Context.Provider value={{userPokomons, setUserPokomons, userTeam, setUserTeam, generateTeam, 
                                     cardPack, setCardPack, generateCardPack, pokoMarket, setPokoMarket,
-                                    cpuTeam, generateAdvTeam}}>
+                                    cpuTeam, generateAdvTeam, inBattle, setInBattle}}>
             {children}
         </Context.Provider>
     )
