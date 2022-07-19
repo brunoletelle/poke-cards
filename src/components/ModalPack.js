@@ -32,12 +32,16 @@ export default function ModalPack(props){
     return(
         <div className="modal-pack">
             <div className="modal-pack-container-cards">
-                {packPokomons[0].cards.map(pokomon => (
+                {    packPokomons[0].cards.map(pokomon => (
                             <div key={nanoid()} className="modal-pack-card">
+                {packPokomons[0].cards.length === props.max  ?
                                 <Card pokemon={pokomon} />
+                                :
+                                <img className="loading" src="https://c.tenor.com/fSsxftCb8w0AAAAi/pikachu-running.gif" alt="loading" />
+                            }           
                             </div>
-                            
-                            ))}
+                            ))
+                }
                 
             </div>
             <h2>Compra Exitosa!</h2>

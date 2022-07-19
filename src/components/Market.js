@@ -16,6 +16,7 @@ export default function Market(){
     const [isOpen, openModal, closeModal] = useModal(false)
 
     const [typeBuy, setTypeBuy] = useState("bronze")
+    const [cardSize, setCardSize] = useState(5)
 
     const packTypes = [{type: "bronze", maxCard: 5},
                         {type: "silver", maxCard: 4},
@@ -35,6 +36,7 @@ export default function Market(){
 
         openModal()
         setTypeBuy(type)
+        setCardSize(maxCard)
     }
 
     return(
@@ -48,17 +50,17 @@ export default function Market(){
             <div className='pack-market'>
                 {packTypes.map(pack => (
                     <div key={nanoid()} className='pack-product'>
-                        <Pack type={pack.type}/>
-                        {pack.maxCard !== 1 ? <h4>Pack of {pack.maxCard} random {pack.type} cards</h4> 
-                                            : <h4>{pack.maxCard} random perl card</h4>
+                        <Pack type={pack.type} />
+                        {pack.maxCard !== 1 ? <h4>Pack de {pack.maxCard} cartas {pack.type} random</h4> 
+                                            : <h4>{pack.maxCard} carta random perl</h4>
                         }
-                        <button onClick={() => {buyPack(pack.type, pack.maxCard)}}>Comprar</button>
+                        <button onClick={() => {buyPack(pack.type, pack.maxCard)}}>COMPRAR</button>
                     </div>)
                 )}
             </div>
             }
             <Modal isOpen={isOpen} close={closeModal} hideClose={false}>
-                    <ModalPack name={typeBuy}/>
+                    <ModalPack name={typeBuy} max={cardSize}/>
             </Modal>
 
         </div>

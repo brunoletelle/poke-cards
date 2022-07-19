@@ -15,6 +15,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
     }
     &-card{
         transform: scale(0.6);
@@ -48,4 +49,13 @@
 
         }
     }
+}
+
+.loading{
+    width: 250px;
+    margin: 140px 40px;
+}
+
+.sort-menu{
+    
 }

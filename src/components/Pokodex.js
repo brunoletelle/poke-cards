@@ -32,11 +32,16 @@ export default function Team(){
 
     return(
         <div className="main-pokodex" style={{backgroundImage: "url(../background/background-pokodex.png)"}}>
+        {!inBattle&&         
+            <div className="sort-menu">
+                <h4>Hola soy un menu</h4>
+            </div>
+        }
         {inBattle ?
-        <div className="warning-battle-pokodex">
-            <h3>Durante la batalla no puedes cambiar tu equipo</h3>
-        </div>
-        :
+            <div className="warning-battle-pokodex">
+                <h3>Durante la batalla no puedes cambiar tu equipo</h3>
+            </div>
+            :
             <div className="pokodex-cards">
                 {
                 poke.map(pokomon => (
@@ -46,7 +51,7 @@ export default function Team(){
                 ))
                 }
             </div>
-        }            
+        }   
         </div>
     )
 }

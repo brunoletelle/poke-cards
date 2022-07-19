@@ -16,18 +16,22 @@ function ContextProvider({children}){
     const [pokoMarket, setPokoMarket] = useState([])
     const [cardPack, setCardPack] = useState([ {
                                                     name: "bronze",
+                                                    maxCards: 5,
                                                     cards: [] 
                                                 },
                                                 {
                                                     name: "silver",
+                                                    maxCards: 4,
                                                     cards: [] 
                                                 },
                                                 {
                                                     name: "gold",
+                                                    maxCards: 2,
                                                     cards: [] 
                                                 },
                                                 {
                                                     name: "perl",
+                                                    maxCards: 1,
                                                     cards: [] 
                                                 },
                                             ])
@@ -93,6 +97,7 @@ function ContextProvider({children}){
                     const newPack = prevPack.map(pac => {
                         if(pac.name === cardDV){
                             return ({ name: pac.name,
+                                      maxCards: pac.maxCards,
                                         cards: [...pac.cards,poke]  
                             })
                         } else return pac
