@@ -227,56 +227,58 @@ export default function Battleground(){
       battleTeam.length === 3 && battleCpuTeam.length === 3 && inBattle ?
 
       <div className="main-battle" style={{backgroundImage: "url(../background/background-team.png)"}}>
-         <div className="battle-background" style={{backgroundImage: "url(../background/gym.png)"}}>
-            <img className={userHit ? "userPokemon-img damaged" : "userPokemon-img"} src={battleTeam[isSelected].imageBack} alt="pokomon selected back" />
+         <div className="battle-container">
+            <div className="battle-background" style={{backgroundImage: "url(../background/gym.png)"}}>
+               <img className={userHit ? "userPokemon-img damaged" : "userPokemon-img"} src={battleTeam[isSelected].imageBack} alt="pokomon selected back" />
 
-            <div className="userBench">
-               {battleTeam.map( (pokemon, index) => (
-                  <div className="userBenchPokemon" key={nanoid()}>
-                     <img className="userBenchPokemon-img"  onClick={() => setIsSelected(index)} src={pokemon.imageFront} alt="pokomon selected back" />
-                  </div>
-               ))}
-            </div>
-
-            <div className="cpuBench">
-               {battleCpuTeam.map( (pokemon, index) => (
-                  <div className="cpuBenchPokemon" key={nanoid()} >
-                     <img className="cpuBenchPokemon-img" src={pokemon.imageFront} style={{ filter: index === currentAdv ? "brightness(1)": "brightness(0)" }} alt="pokomon selected back" />
-                  </div>
-               ))}
-            </div>
-
-            <img className={cpuHit ? "pcPokemon-img damaged" : "pcPokemon-img"} src={cpuTeam[currentAdv].imageFront} alt="pokomon selected front" />
-
-            <div className="currentAdv-info">
-               <h3>{battleCpuTeam[currentAdv].name}</h3>
-               <div className="progress-bar-cpu">
-                  <div style={{width: hpBar(cpuTeam[currentAdv].stats[0].base_stat,battleCpuTeam[currentAdv].stats[0].base_stat)}}>
-                     { battleCpuTeam[currentAdv].stats[0].base_stat}
-                  </div>
-               </div>
-            </div>
-
-            <div className="selected-info">
-               <h3>{battleTeam[isSelected].name}</h3>
-               <div className="progress-bar">
-                  <div style={{width: hpBar(userTeam[isSelected].stats[0].base_stat,battleTeam[isSelected].stats[0].base_stat)}}>
-                     {battleTeam[isSelected].stats[0].base_stat}
-                  </div>
-               </div>
-
-               <div className="moves">
-                  {battleTeam[isSelected].moveArray.map( move =>
-                     <div className="moves-button" onClick={userTurn && userLife[isSelected] ? () => userAttack(battleTeam[isSelected], battleCpuTeam[currentAdv], move ) : undefined} key={nanoid()} >
-                        <img src={icons+`${move.type.toLowerCase()}.png`} alt="move icon" />
-                        <h3>{move.name}</h3>
-                        <h3>{move.power}</h3>
+               <div className="userBench">
+                  {battleTeam.map( (pokemon, index) => (
+                     <div className="userBenchPokemon" key={nanoid()}>
+                        <img className="userBenchPokemon-img"  onClick={() => setIsSelected(index)} src={pokemon.imageFront} alt="pokomon selected back" />
                      </div>
-                  )}
+                  ))}
+               </div>
+
+               <div className="cpuBench">
+                  {battleCpuTeam.map( (pokemon, index) => (
+                     <div className="cpuBenchPokemon" key={nanoid()} >
+                        <img className="cpuBenchPokemon-img" src={pokemon.imageFront} style={{ filter: index === currentAdv ? "brightness(1)": "brightness(0)" }} alt="pokomon selected back" />
+                     </div>
+                  ))}
+               </div>
+
+               <img className={cpuHit ? "pcPokemon-img damaged" : "pcPokemon-img"} src={cpuTeam[currentAdv].imageFront} alt="pokomon selected front" />
+
+               <div className="currentAdv-info">
+                  <h3>{battleCpuTeam[currentAdv].name}</h3>
+                  <div className="progress-bar-cpu">
+                     <div style={{width: hpBar(cpuTeam[currentAdv].stats[0].base_stat,battleCpuTeam[currentAdv].stats[0].base_stat)}}>
+                        { battleCpuTeam[currentAdv].stats[0].base_stat}
+                     </div>
+                  </div>
+               </div>
+
+               <div className="selected-info">
+                  <h3>{battleTeam[isSelected].name}</h3>
+                  <div className="progress-bar">
+                     <div style={{width: hpBar(userTeam[isSelected].stats[0].base_stat,battleTeam[isSelected].stats[0].base_stat)}}>
+                        {battleTeam[isSelected].stats[0].base_stat}
+                     </div>
+                  </div>
+
+                  <div className="moves">
+                     {battleTeam[isSelected].moveArray.map( move =>
+                        <div className="moves-button" onClick={userTurn && userLife[isSelected] ? () => userAttack(battleTeam[isSelected], battleCpuTeam[currentAdv], move ) : undefined} key={nanoid()} >
+                           <img src={icons+`${move.type.toLowerCase()}.png`} alt="move icon" />
+                           <h3>{move.name}</h3>
+                           <h3>{move.power}</h3>
+                        </div>
+                     )}
+                  </div>
+
                </div>
 
             </div>
-
          </div>
          
 

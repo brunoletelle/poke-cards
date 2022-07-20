@@ -62,15 +62,28 @@
 } 
     
 
-.battle-background{
-    position: relative;
-    border: 2px solid lightgray;
-    border-radius: 20px;
-    width: 800px;
-    height: 450px;
-    background-repeat: no-repeat;
-    background-size: cover;
+.battle{
 
+    &-container{
+        background-color:white;
+        border-radius: 20px;
+        width: 1050px;
+        height: 600px;
+        padding-bottom: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+
+    &-background{
+        position: relative;
+        border-radius: 20px;
+        width: 800px;
+        height: 450px;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 }
 
 .userPokemon-img{

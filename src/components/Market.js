@@ -42,6 +42,7 @@ export default function Market(){
     return(
         
         <div className='main-market' style={{backgroundImage: "url(../background/background-market.png)"}}>
+            
             {inBattle ?
             <div className='warning-battle-market'>
                 <h3>Durante la batalla no puedes comprar cartas</h3>
