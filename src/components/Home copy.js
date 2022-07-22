@@ -8,7 +8,7 @@ export default function Home(){
     const {generateTeam, userTeam} = useContext(Context)
     
     useEffect(() => {
-        
+
         generateTeam()
         
     }, []) 
