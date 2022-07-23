@@ -1,8 +1,10 @@
 import {useContext} from "react";
-import "../styles/components/NavBar.scss"
-import image from "../styles/components/poke-logo2.png"
+import "./styles/NavBar.scss"
+import image from "./images/poke-logo2.png"
+
+//import image from "../../../styles/components/poke-logo2.png"
 import {Link as RouteLink} from "react-router-dom"
-import { Context } from "../Context";
+import { Context } from "../../Context";
 
 export default function NavBar(){
 

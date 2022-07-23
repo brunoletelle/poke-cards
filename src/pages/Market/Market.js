@@ -1,12 +1,12 @@
-import '../styles/components/Market.scss'
+import './styles/Market.scss'
 
 import {useState, useContext} from "react"
-import { Context } from '../Context'
-import ModalPack from './ModalPack'
-import Pack from "./Pack"
+import { Context } from '../../Context'
+import ModalPack from "../../components/Modals/ModalPack"
+import Pack from "./components/Pack/Pack"
 import { nanoid } from "nanoid"
-import Modal from './Modal'
-import { useModal } from '../hooks/useModal'
+import Modal from '../../components/Modals/Modal'
+import { useModal } from '../../hooks/useModal'
 
 
 export default function Market(){

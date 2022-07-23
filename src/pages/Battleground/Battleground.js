@@ -1,10 +1,10 @@
 import {useContext, useEffect, useState} from "react"
-import { Context } from "../Context"
-import "../styles/components/Battleground.scss"
+import { Context } from "../../Context"
+import "./styles/Battleground.scss"
 import { nanoid } from "nanoid"
-import attack from "../functions/attack"
-import Modal from "./Modal"
-import { useModal } from "../hooks/useModal"
+import attack from "./functions/attack"
+import Modal from "../../components/Modals/Modal"
+import { useModal } from "../../hooks/useModal"
 
 export default function Battleground(){
 
@@ -140,9 +140,11 @@ export default function Battleground(){
    }
    
    function userAttack(attacker, defender, move){
-      setCpuHit(true)
-      setUserHit(false)
-      attackControl(attacker,defender,move)
+      if(attacker.stats[0].base_stat !==0){
+         setCpuHit(true)
+         setUserHit(false)
+         attackControl(attacker,defender,move)
+      }
    }
 
    //Control de ataque, cambio de vida del defensor y manejo de turno
@@ -157,6 +159,7 @@ export default function Battleground(){
       //Obtengo el daño causado por el ataque 
       if(attacker.stats[0].base_stat === 0){
          damage = 0
+         return
       } else damage = attack(attacker, defender, move)
          
       let hp = defender.stats[0].base_stat - damage
@@ -220,8 +223,6 @@ export default function Battleground(){
       setUserHit(false)
 
    }
-   
-   console.log(inBattle)
     
    return(
       battleTeam.length === 3 && battleCpuTeam.length === 3 && inBattle ?
@@ -250,19 +251,23 @@ export default function Battleground(){
                <img className={cpuHit ? "pcPokemon-img damaged" : "pcPokemon-img"} src={cpuTeam[currentAdv].imageFront} alt="pokomon selected front" />
 
                <div className="currentAdv-info">
-                  <h3>{battleCpuTeam[currentAdv].name}</h3>
-                  <div className="progress-bar-cpu">
-                     <div style={{width: hpBar(cpuTeam[currentAdv].stats[0].base_stat,battleCpuTeam[currentAdv].stats[0].base_stat)}}>
-                        { battleCpuTeam[currentAdv].stats[0].base_stat}
+                  <div className="selected-info-container">
+                     <div className="progress-bar">
+                        <div style={{width: hpBar(cpuTeam[currentAdv].stats[0].base_stat,battleCpuTeam[currentAdv].stats[0].base_stat)}}>
+                           { /* battleCpuTeam[currentAdv].stats[0].base_stat */}
+                        </div>
                      </div>
+                     <h2 style={{color: !userTurn ? "lightgreen" : "black" }}>{battleCpuTeam[currentAdv].name.toUpperCase()}</h2>
                   </div>
                </div>
 
                <div className="selected-info">
-                  <h3>{battleTeam[isSelected].name}</h3>
-                  <div className="progress-bar">
-                     <div style={{width: hpBar(userTeam[isSelected].stats[0].base_stat,battleTeam[isSelected].stats[0].base_stat)}}>
-                        {battleTeam[isSelected].stats[0].base_stat}
+                  <div className="selected-info-container">
+                     <h2 style={{color: userTurn ? "lightgreen" : "black" }}>{battleTeam[isSelected].name.toUpperCase()}</h2>
+                     <div className="progress-bar">
+                        <div style={{width: hpBar(userTeam[isSelected].stats[0].base_stat,battleTeam[isSelected].stats[0].base_stat)}}>
+                           {/* battleTeam[isSelected].stats[0].base_stat */}
+                        </div>
                      </div>
                   </div>
 
@@ -270,7 +275,7 @@ export default function Battleground(){
                      {battleTeam[isSelected].moveArray.map( move =>
                         <div className="moves-button" onClick={userTurn && userLife[isSelected] ? () => userAttack(battleTeam[isSelected], battleCpuTeam[currentAdv], move ) : undefined} key={nanoid()} >
                            <img src={icons+`${move.type.toLowerCase()}.png`} alt="move icon" />
-                           <h3>{move.name}</h3>
+                           <h3>{move.name.toUpperCase()}</h3>
                            <h3>{move.power}</h3>
                         </div>
                      )}

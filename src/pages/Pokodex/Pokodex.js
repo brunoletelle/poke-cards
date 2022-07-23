@@ -1,15 +1,16 @@
 import {useContext, useState,  useEffect} from "react"
-import "../styles/components/Pokodex.scss"
-import Card from "./Cards-actual"
-import { Context } from "../Context"
+import "./styles/Pokodex.scss"
+import Card from "../../components/Cards/Cards-actual"
+import { Context } from "../../Context"
 import { nanoid } from "nanoid"
+import cardOrder from "./functions/cardOrder"
 
 
 export default function Pokodex(){
     const {userPokomons, userTeam, setUserTeam, inBattle, generateTeam} = useContext(Context)
     
     const [order, setOrder] = useState("Nombre")
-    const [filter,setFilter] = useState()
+    const [filter,setFilter] = useState("Todos")
     const [ poke, setPoke] = useState(userPokomons)
     
     //Se genera un equipo si no se genero en el inicio
@@ -33,75 +34,16 @@ export default function Pokodex(){
         }
     }
     
-    // Ordenar Cartas
+    //---------------- Ordenar Cartas ------------//
     function handleOrder(event){
         setOrder(event.target.value)
         setPoke(prevPokomons => cardOrder(prevPokomons,event.target.value))
-        console.log(poke)
+        
     }
     
     const orderVar = ["Nombre","Tipo","Nivel","DV"]
     
-    function cardOrder(pokomons, value){
-        switch(value){
-            case "Tipo":
-            return (pokomons.sort(function (a, b) {
-                console.log("entro aca")
-                if (a.type[0].type.name > b.type[0].type.name) {
-                  return 1;
-                }
-                if (a.type[0].type.name < b.type[0].type.name) {
-                  return -1;
-                }
-                return 0;
-              }))
-            
-            case "Nombre":
-                return(pokomons.sort(function (a, b) {
-                    if (a.name > b.name) {
-                      return 1;
-                    }
-                    if (a.name < b.name) {
-                      return -1;
-                    }
-                    return 0;
-                  }))
-
-            case "Nivel":
-            return(pokomons.sort(function (a, b) {
-                if (a.level > b.level) {
-                    return 1;
-                }
-                if (a.level < b.level) {
-                    return -1;
-                }
-                return 0;
-                }))
-            
-            case "DV":
-                return(pokomons.sort(function (a, b) {
-                    if (a.DV > b.DV) {
-                    return 1;
-                    }
-                    if (a.DV < b.DV) {
-                    return -1;
-                    }
-                    return 0;
-                }))
-            default:
-                return(pokomons.sort(function (a, b) {
-                    if (a.name > b.name) {
-                      return 1;
-                    }
-                    if (a.name < b.name) {
-                      return -1;
-                    }
-                    return 0;
-                  }))
-        }
-    }
-
-    // FILTRAR CARTAS 
+    //--------------- FILTRAR CARTAS ---------------//
     function handleFilter(event){
         setFilter(event.target.value)
         setPoke(() => cardFilter(userPokomons, event.target.value))
@@ -131,6 +73,7 @@ export default function Pokodex(){
     }
     
 
+
     return(
         <div className="main-pokodex" style={{backgroundImage: "url(../background/background-pokodex.png)"}}>
         {!inBattle&&         
@@ -140,7 +83,7 @@ export default function Pokodex(){
                     <form>
                         {orderVar.map(oVar => 
                             <label>
-                                <input type="radio" value={oVar} checked={order === {oVar}} onChange={(event) => handleOrder(event)}/>
+                                <input type="radio" value={oVar} checked={order === oVar} onChange={(event) => handleOrder(event)}/>
                                 {oVar}
                             </label>
                             )}
@@ -151,7 +94,7 @@ export default function Pokodex(){
                     <form>
                         {filterVar.map(filVar => 
                             <label>
-                                <input type="radio" value={filVar} checked={filter === {filVar}} onChange={(event) => handleFilter(event)}/>
+                                <input type="radio" value={filVar} checked={filter === filVar} onChange={(event) => handleFilter(event)}/>
                                 {filVar}
                             </label>
                             )}

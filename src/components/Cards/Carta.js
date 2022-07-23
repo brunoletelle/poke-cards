@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Card from "./Cards-actual";
-import { Context } from "../Context";
+import { Context } from "../../Context";
 
 export default function Carta(){
 

@@ -1,7 +1,7 @@
-import "../styles/components/Cards-actual.scss"
+import "./styles/Cards-actual.scss"
 import {useState, useContext} from "react"
 import { nanoid } from 'nanoid'
-import { Context } from "../Context"
+import { Context } from "../../Context"
 
 export default function Card(props){
 

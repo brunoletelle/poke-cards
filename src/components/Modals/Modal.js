@@ -1,4 +1,4 @@
-import "../styles/components/Modal.scss"
+import "./styles/Modal.scss"
 
 export default function Modal({isOpen, close, children, hideClose}){
     

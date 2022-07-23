@@ -1,7 +1,7 @@
 import {useContext} from "react"
-import { Context } from "../Context"
-import Card from "./Cards-actual"
-import "../styles/components/ModalPack.scss"
+import { Context } from "../../Context"
+import Card from "../Cards/Cards-actual"
+import "./styles/ModalPack.scss"
 import { nanoid } from "nanoid"
 
 

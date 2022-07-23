@@ -1,5 +1,5 @@
 import {useState, createContext} from "react"
-import pokeGenerator from "./poke-gen-final"
+import pokeGenerator from "./functions/poke-gen-final"
 
 const Context = createContext()
 

@@ -1,6 +1,5 @@
-import '../styles/components/Pack.scss'
+import './styles/Pack.scss'
 import React from "react"
-import { Context } from '../Context'
 export default function Pack(props){
 
     const type = props.type

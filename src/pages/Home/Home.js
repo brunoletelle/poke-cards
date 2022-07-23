@@ -1,7 +1,7 @@
 import {useContext, useEffect} from "react"
-import "../styles/components/Home.scss"
-import Card from "./Cards-actual"
-import { Context } from "../Context"
+import "./styles/Home.scss"
+import Card from "../../components/Cards/Cards-actual"
+import { Context } from "../../Context"
 
 export default function Home(){
 
@@ -23,7 +23,7 @@ export default function Home(){
                         <h3>Vas a poder utilizarlos para combatir en la zona de batalla, y juntar monedas para conseguir nuevos</h3>
                         <h3>Pokomones en el Market</h3>
                     </div>
-                    <h2>Conoce a tu equipo</h2>
+                    <h2>Tu equipo actual:</h2>
                 </div>
                 <div className="card-list">
                 {userTeam.map(pokomon => (
