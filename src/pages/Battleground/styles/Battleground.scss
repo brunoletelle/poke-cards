@@ -66,7 +66,7 @@
 
     &-container{
         //background-color:black;
-        background-color:white;
+        background-color:#FFD538;
         
         clip-path: polygon(6.5% 0%, 100% 0%, 93.7% 100%, 0% 100%);
         //border-radius: 20px;
@@ -104,6 +104,7 @@
     bottom: 0rem;
     width: 100px;
     border-radius: 20px;
+    
 }
 
 
@@ -118,7 +119,7 @@
     
     &-img{
         cursor:pointer;
-        filter:brightness(1);
+        //filter:greyscale(1);
     }
 }
 

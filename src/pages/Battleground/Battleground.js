@@ -40,6 +40,8 @@ export default function Battleground(){
    generateTeam()
    generateAdvTeam()
    setInBattle(true)
+   
+   closeModal()
 
   }
   
@@ -88,7 +90,8 @@ export default function Battleground(){
       }
    },[userTurn])
 
-   //Chequea que los pokomones puedan continuar peleando
+   //--------Chequea que los pokomones puedan continuar peleando----//
+
    useEffect(() => {
 
       if(battleTeam.length === 3 && battleCpuTeam.length ===3){
@@ -97,6 +100,7 @@ export default function Battleground(){
 
          if(userLose.length === 0){
             setCpuWin(true)
+            setUserWin(false)
             openModal()
          }
          const cpuLose = battleCpuTeam.filter(pokomon => pokomon.stats[0].base_stat !== 0)
