@@ -10,6 +10,7 @@ import { ContextProvider } from "./Context"
 
 import {BrowserRouter as Router} from 'react-router-dom';
 import {Route, Routes} from 'react-router-dom';
+import Footer from "./components/Footer/Footer"
 
 export default function App(){
   
@@ -24,6 +25,7 @@ export default function App(){
         <Route exact path="/battleground" element={<Battleground/>} />
         <Route exact path="/card" element={<Carta/>} />
       </Routes>
+      <Footer/>
     </Router>
     </ContextProvider>
   )
