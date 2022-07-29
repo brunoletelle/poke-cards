@@ -65,14 +65,15 @@ export default function Battleground(){
 
       // ------- ATAQUE AUTOMATICO CPU
       function cpuAutoAttack(){
-
+         
+         
          //-- Si puede seguir peleando,
          if(battleCpuTeam[currentAdv].stats[0].base_stat > 0){
             attackControl(battleCpuTeam[currentAdv], battleTeam[isSelected], battleCpuTeam[currentAdv].moveArray[randomNumber(1,0)])
             setCpuHit(false)
             setUserHit(true)
+            
          } else {
-
             setCurrentAdv(prevAdv => {
                if(prevAdv !== 2){
                   setTimeout( () => {
@@ -125,6 +126,11 @@ export default function Battleground(){
    
    // ----- Se asigna un estado de true o false de acuerdo a el status para batalla -----
 
+   useEffect(() => {
+      checkLife()
+      
+   },[battleTeam, battleCpuTeam])
+
    function checkLife(){
       setUserLife(() =>{
          const userLive = battleTeam.map(pokomon => {
@@ -156,6 +162,8 @@ export default function Battleground(){
       return( `${lifeLeft}%`)
    }
    
+
+   // -------Ataque de usuario --------------
    function userAttack(attacker, defender, move){
       if(attacker.stats[0].base_stat !==0){
          setCpuHit(true)
@@ -220,16 +228,15 @@ export default function Battleground(){
       setUserTurn(!userTurn)
   }
 
-  useEffect(() => {
-   if(userWin && !inBattle){
-      setCoins(prevCoins => prevCoins + 50)
-   }
-  }, [inBattle])
 
   //---------- Reinicio de condiciones previas a la batalla. Se cambia el equipo de Cpu
 
   function reboot(){
       closeModal()
+      
+      if(userWin){
+         setCoins(prevCoins => prevCoins + 50)
+      }
 
       setUserWin(false)
       setCpuWin(false)
@@ -247,20 +254,21 @@ export default function Battleground(){
 
       setCpuHit(false)
       setUserHit(false)
+      
 
    }
     
    return(
       battleTeam.length === 3 && battleCpuTeam.length === 3 && inBattle ?
 
-      <div className="main-battle" style={{/* backgroundImage: "url(../background/background-team.png)" */}}>
+      <div className="main-battle" style={{ backgroundImage: "url(../background/background-team.png)" }}>
          <div className="battle-container">
             <div className="battle-background" style={{backgroundImage: "url(../background/gym.png)"}}>
                <img className={userHit ? "userPokemon-img damaged" : "userPokemon-img"} src={battleTeam[isSelected].imageBack} alt="pokomon selected back" />
 
                <div className="userBench">
                   {battleTeam.map( (pokemon, index) => (
-                     <div className="userBenchPokemon" key={nanoid()}>
+                     <div className="userBenchPokemon" key={nanoid()} style={{backgroundColor: userLife[index] ? "rgba(127, 247, 139, 0.452)" : "rgba(253, 14, 14, 0.452)"}}>
                         <img className="userBenchPokemon-img"  onClick={() => setIsSelected(index)} src={pokemon.imageFront} alt="pokomon selected back" />
                      </div>
                   ))}
@@ -268,7 +276,7 @@ export default function Battleground(){
 
                <div className="cpuBench">
                   {battleCpuTeam.map( (pokemon, index) => (
-                     <div className="cpuBenchPokemon" key={nanoid()} >
+                     <div className="cpuBenchPokemon" key={nanoid()} style={{backgroundColor: cpuLife[index] ? "rgba(127, 247, 139, 0.452)" : "rgba(253, 14, 14, 0.452)"}}>
                         <img className="cpuBenchPokemon-img" src={pokemon.imageFront} style={{ filter: index === currentAdv ? "brightness(1)": "brightness(0)" }} alt="pokomon selected back" />
                      </div>
                   ))}

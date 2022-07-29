@@ -19,21 +19,25 @@ function ContextProvider({children}){
     const [cardPack, setCardPack] = useState([ {
                                                     name: "bronze",
                                                     maxCards: 5,
+                                                    price: 200,
                                                     cards: [] 
                                                 },
                                                 {
                                                     name: "silver",
                                                     maxCards: 4,
+                                                    price: 300,
                                                     cards: [] 
                                                 },
                                                 {
                                                     name: "gold",
                                                     maxCards: 2,
+                                                    price: 400,
                                                     cards: [] 
                                                 },
                                                 {
                                                     name: "perl",
                                                     maxCards: 1,
+                                                    price: 500,
                                                     cards: [] 
                                                 },
                                             ])
