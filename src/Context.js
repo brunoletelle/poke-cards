@@ -13,6 +13,8 @@ function ContextProvider({children}){
 
     const [cpuTeam, setCpuTeam] = useState([])
 
+    const [coins, setCoins] = useState(100)
+
     const [pokoMarket, setPokoMarket] = useState([])
     const [cardPack, setCardPack] = useState([ {
                                                     name: "bronze",
@@ -36,6 +38,7 @@ function ContextProvider({children}){
                                                 },
                                             ])
 
+    // Genera los pokomons iniciales si se han generado anteriormente
     function generateTeam(){
         if(userPokomons.length <3){
             for(let i = 0; i < 3; i++){
@@ -47,6 +50,7 @@ function ContextProvider({children}){
         }
     }
 
+    // Genera un equipo rival para las batallas 
     function generateAdvTeam(regenerate){
         
         if(regenerate){
@@ -63,7 +67,7 @@ function ContextProvider({children}){
 
     }
     
-    //GENERADOR DE PACK DE CARTAS
+    //GENERADOR DE PACK DE CARTAS PARA MARKET
 
     function generateCardPack(cardDV){
 
@@ -107,16 +111,16 @@ function ContextProvider({children}){
                 })
             })
         }
-        
-        
-
-
     }
 
     return(
-        <Context.Provider value={{userPokomons, setUserPokomons, userTeam, setUserTeam, generateTeam, 
-                                    cardPack, setCardPack, generateCardPack, pokoMarket, setPokoMarket,
-                                    cpuTeam, setCpuTeam, generateAdvTeam, inBattle, setInBattle}}>
+        <Context.Provider value={{userPokomons, setUserPokomons, 
+                                    userTeam, setUserTeam, generateTeam, 
+                                    cardPack, setCardPack, generateCardPack, 
+                                    pokoMarket, setPokoMarket,
+                                    cpuTeam, setCpuTeam, generateAdvTeam, 
+                                    inBattle, setInBattle,
+                                    coins, setCoins}}>
             {children}
         </Context.Provider>
     )

@@ -75,7 +75,7 @@ export default async function pokeGenerator(DVmin, DVmax){
         function isValidMove(){
             const random = randomNumber(pokemon.moves.length-1,0)
             const found = data.some(mov => pokemon.moves[random].move.name === mov.name)
-            
+
             if(found){
                 return random
             } else return isValidMove()
@@ -96,13 +96,18 @@ export default async function pokeGenerator(DVmin, DVmax){
 
         let res = await fetch(data.type.url)
         let typeDamage = await res.json()
+
+        let pow = 0;
+        if(data.power === null){
+            pow = 30
+        } else pow = data.power
         
         pokemon.moveArray = [...pokemon.moveArray,
                             {   id: data.id,
                                 name: moveName.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                 description: data.effect_entries[0].effect,
                                 accuracy: data.accuracy,
-                                power: data.power,
+                                power: pow,
                                 type: data.type.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                 classDamage: data.damage_class.name.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase()),
                                 no_damage_to: damageRelations(typeDamage.damage_relations.no_damage_to),

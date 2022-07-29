@@ -8,7 +8,7 @@ import { useModal } from "../../hooks/useModal"
 
 export default function Battleground(){
 
-   const {userTeam, generateTeam, generateAdvTeam, cpuTeam, setCpuTeam, inBattle, setInBattle} = useContext(Context)
+   const {userTeam, generateTeam, generateAdvTeam, cpuTeam, setCpuTeam, inBattle, setInBattle, coins, setCoins} = useContext(Context)
    
    const [isOpen, openModal, closeModal] = useModal(false)
 
@@ -35,6 +35,8 @@ export default function Battleground(){
       return (Math.floor((Math.random() * (max - min + 1)) + min))
   }
 
+  //--------Iniciador de batalla ----
+
   function beginBattle(){
            
    generateTeam()
@@ -45,10 +47,14 @@ export default function Battleground(){
 
   }
   
+  //----- Creacion de copias virtuales para la batalla ---------
    useEffect(() => {
       setBattleTeam([...userTeam])
       setBattleCpuTeam([...cpuTeam])
    }, [userTeam, cpuTeam])
+
+
+   //--Ataques automaticos por turno ------------
 
    useEffect(() =>{
       if(!userTurn){
@@ -57,13 +63,16 @@ export default function Battleground(){
          ,2000)
       }
 
-      // ATAQUE AUTOMATICO CPU
+      // ------- ATAQUE AUTOMATICO CPU
       function cpuAutoAttack(){
+
+         //-- Si puede seguir peleando,
          if(battleCpuTeam[currentAdv].stats[0].base_stat > 0){
             attackControl(battleCpuTeam[currentAdv], battleTeam[isSelected], battleCpuTeam[currentAdv].moveArray[randomNumber(1,0)])
             setCpuHit(false)
             setUserHit(true)
          } else {
+
             setCurrentAdv(prevAdv => {
                if(prevAdv !== 2){
                   setTimeout( () => {
@@ -90,6 +99,7 @@ export default function Battleground(){
       }
    },[userTurn])
 
+   
    //--------Chequea que los pokomones puedan continuar peleando----//
 
    useEffect(() => {
@@ -113,6 +123,8 @@ export default function Battleground(){
       
    }, [userTurn])
    
+   // ----- Se asigna un estado de true o false de acuerdo a el status para batalla -----
+
    function checkLife(){
       setUserLife(() =>{
          const userLive = battleTeam.map(pokomon => {
@@ -137,7 +149,8 @@ export default function Battleground(){
       }
    }
 
-   //Barra de vida 
+   //--------- Barra de vida -----------
+
    function hpBar(fullHp,leftHp){
       const lifeLeft = Math.floor((leftHp/fullHp)*100)
       return( `${lifeLeft}%`)
@@ -151,7 +164,8 @@ export default function Battleground(){
       }
    }
 
-   //Control de ataque, cambio de vida del defensor y manejo de turno
+   //Control de ataque, cambio de vida del defensor y manejo de turno----------
+
    function attackControl(attacker, defender, move){
 
       let damage = 0
@@ -206,6 +220,14 @@ export default function Battleground(){
       setUserTurn(!userTurn)
   }
 
+  useEffect(() => {
+   if(userWin && !inBattle){
+      setCoins(prevCoins => prevCoins + 50)
+   }
+  }, [inBattle])
+
+  //---------- Reinicio de condiciones previas a la batalla. Se cambia el equipo de Cpu
+
   function reboot(){
       closeModal()
 
@@ -231,7 +253,7 @@ export default function Battleground(){
    return(
       battleTeam.length === 3 && battleCpuTeam.length === 3 && inBattle ?
 
-      <div className="main-battle" style={{backgroundImage: "url(../background/background-team.png)"}}>
+      <div className="main-battle" style={{/* backgroundImage: "url(../background/background-team.png)" */}}>
          <div className="battle-container">
             <div className="battle-background" style={{backgroundImage: "url(../background/gym.png)"}}>
                <img className={userHit ? "userPokemon-img damaged" : "userPokemon-img"} src={battleTeam[isSelected].imageBack} alt="pokomon selected back" />
@@ -256,7 +278,7 @@ export default function Battleground(){
 
                <div className="currentAdv-info">
                   <div className="selected-info-container">
-                     <div className="progress-bar">
+                     <div className="life-bar">
                         <div style={{width: hpBar(cpuTeam[currentAdv].stats[0].base_stat,battleCpuTeam[currentAdv].stats[0].base_stat)}}>
                            { /* battleCpuTeam[currentAdv].stats[0].base_stat */}
                         </div>
@@ -268,7 +290,7 @@ export default function Battleground(){
                <div className="selected-info">
                   <div className="selected-info-container">
                      <h2 style={{color: userTurn ? "lightgreen" : "black" }}>{battleTeam[isSelected].name.toUpperCase()}</h2>
-                     <div className="progress-bar">
+                     <div className="life-bar">
                         <div style={{width: hpBar(userTeam[isSelected].stats[0].base_stat,battleTeam[isSelected].stats[0].base_stat)}}>
                            {/* battleTeam[isSelected].stats[0].base_stat */}
                         </div>
@@ -290,7 +312,6 @@ export default function Battleground(){
             </div>
          </div>
          
-
          <Modal isOpen={isOpen} close={closeModal} hideClose={true}>
             <div className="modal-battle">
                <img src={ userWin ? "https://c.tenor.com/kYWeox8OKvAAAAAC/pokemon-squirtle.gif" : 

@@ -8,7 +8,7 @@ import { Context } from "../../Context";
 
 export default function NavBar(){
 
-    const {userPokomons} = useContext(Context)
+    const {userPokomons, coins} = useContext(Context)
 
     return(
         <div>
@@ -33,7 +33,7 @@ export default function NavBar(){
                     </RouteLink>
                 </div>
                 <div>
-                    <h3>COINS</h3>
+                    <h3>{coins} COINS</h3>
                 </div>
             </div>
         </div>
