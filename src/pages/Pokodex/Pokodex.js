@@ -82,7 +82,7 @@ export default function Pokodex(){
                     <h3>Ordenar Cartas</h3>
                     <form>
                         {orderVar.map(oVar => 
-                            <label>
+                            <label key={nanoid()}>
                                 <input type="radio" value={oVar} checked={order === oVar} onChange={(event) => handleOrder(event)}/>
                                 {oVar}
                             </label>
@@ -93,7 +93,7 @@ export default function Pokodex(){
                     <h3>Filtrar Cartas</h3>
                     <form>
                         {filterVar.map(filVar => 
-                            <label>
+                            <label key={nanoid()}>
                                 <input type="radio" value={filVar} checked={filter === filVar} onChange={(event) => handleFilter(event)}/>
                                 {filVar}
                             </label>

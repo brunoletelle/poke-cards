@@ -159,8 +159,6 @@ export default async function pokeGenerator(DVmin, DVmax){
         pokemon.DV = DV
         pokemon.level = level
 
-        console.log("Generated Pokemon: ", pokemon.name)
-
         const hp = Math.floor((pokemon.stats[0].base_stat+DV)*2/100)*level + level + 10
         
         const stat = [hp]
